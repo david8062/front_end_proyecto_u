@@ -1,0 +1,11 @@
+// ⚡ Mixins útiles
+
+@mixin transition($property: all, $time: 0.3s, $ease: ease-in-out) {
+  transition: $property $time $ease;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
