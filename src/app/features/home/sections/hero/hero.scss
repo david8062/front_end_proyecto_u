@@ -1,6 +1,7 @@
+@use 'styles' as *;
 .hero {
     padding: 180px 0 100px;
-    background: var(--gradient);
+    background: $gradient;
     color: white;
     text-align: center;
     position: relative;

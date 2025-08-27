@@ -1,16 +1,27 @@
-:root {
-  --primary: #E63946;
-  --primary-dark: #C1121F;
-  --secondary: #FCA311;
-  --accent: #FFB703;
-  --light: #F1FAEE;
-  --dark: #1D3557;
-  --success: #2A9D8F;
-  --text: #1D3557;
-  --text-light: #457B9D;
-  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.15);
-  --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-  --gradient-light: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-  --font-main: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+// Colores
+$primary: #E63946;
+$primary-dark: #C1121F;
+$secondary: #FCA311;
+$accent: #FFB703;
+$light: #F1FAEE;
+$dark: #1D3557;
+$success: #2A9D8F;
+$text: #1D3557;
+$text-light: #457B9D;
+$white: #FFFFFF;
+$gray: #6C757D;
+
+// Sombras
+$shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.15);
+
+// Gradientes
+$gradient: linear-gradient(135deg, $primary 0%, $secondary 100%);
+$gradient-light: linear-gradient(135deg, $primary 0%, $accent 100%);
+
+// Tipografía
+$font-main: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+// Otros
+$radius: 10px;
+$transition: all 0.3s ease;

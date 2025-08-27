@@ -1,11 +1,66 @@
-// ⚡ Mixins útiles
-
-@mixin transition($property: all, $time: 0.3s, $ease: ease-in-out) {
-  transition: $property $time $ease;
+@use 'variables' as *;
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-@mixin flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+@mixin flex-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+// Posicionamiento
+@mixin absolute-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+// Componentes
+@mixin card-style {
+    background: white;
+    border-radius: $radius;
+    box-shadow: $shadow;
+    transition: $transition;
+}
+
+@mixin hover-lift {
+    transition: $transition;
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: $shadow-lg;
+    }
+}
+
+// _cards.scss
+@mixin card-base {
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  background-color: $white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  }
+}
+
+.card {
+  @include card-base;
+}
+
+
+// Responsive
+@mixin responsive($breakpoint) {
+    @if $breakpoint == tablet {
+        @media (max-width: 992px) { @content; }
+    } @else if $breakpoint == mobile {
+        @media (max-width: 768px) { @content; }
+    } @else if $breakpoint == small-mobile {
+        @media (max-width: 480px) { @content; }
+    }
 }

@@ -1,5 +1,6 @@
- .testimonials {
-     background: var(--light);
+@use 'styles' as *;
+.testimonials {
+     background: $light;
  }
 
  .testimonials-grid {
@@ -12,7 +13,7 @@
      background: white;
      padding: 30px;
      border-radius: 10px;
-     box-shadow: var(--shadow);
+     box-shadow: $shadow;
      transition: all 0.3s ease;
      position: relative;
  }
@@ -23,14 +24,14 @@
      top: 20px;
      left: 20px;
      font-size: 4rem;
-     color: var(--primary);
+     color: $primary;
      opacity: 0.2;
      font-family: Georgia, serif;
  }
 
  .testimonial-card:hover {
      transform: translateY(-5px);
-     box-shadow: var(--shadow-lg);
+     box-shadow: $shadow-lg;
  }
 
  .testimonial-text {
@@ -49,7 +50,7 @@
      width: 50px;
      height: 50px;
      border-radius: 50%;
-     background: var(--primary);
+     background: $primary;
      display: flex;
      align-items: center;
      justify-content: center;

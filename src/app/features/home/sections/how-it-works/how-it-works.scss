@@ -1,3 +1,5 @@
+@use 'styles' as *;
+
 .steps {
     display: flex;
     justify-content: space-between;
@@ -24,8 +26,8 @@
 .step-number {
     width: 60px;
     height: 60px;
-    background: var(--primary);
-    color: white;
+    background: $primary;
+    color: $white;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -38,7 +40,7 @@
 
 .step:hover .step-number {
     transform: scale(1.1);
-    background: var(--primary-dark);
+    background: $primary-dark;
 }
 
 .step:not(:last-child):after {
@@ -48,7 +50,7 @@
     right: 0;
     width: 50%;
     height: 2px;
-    background: var(--primary);
+    background: $primary;
 }
 
 .step:not(:first-child):before {
@@ -58,5 +60,5 @@
     left: 0;
     width: 50%;
     height: 2px;
-    background: var(--primary);
+    background: $primary;
 }

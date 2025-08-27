@@ -1,5 +1,4 @@
-// 🔧 Utilities
-
+@use 'variables' as *;
 // Grid
 .grid {
   display: grid;
@@ -53,11 +52,11 @@
 .font-bold { font-weight: 700; }
 
 .text-center { text-align: center; }
-.text-primary { color: var(--color-text-primary); }
-.text-secondary { color: var(--color-text-secondary); }
-.text-muted { color: var(--color-text-muted); }
-.text-red { color: var(--color-primary); }
-.text-yellow { color: var(--color-secondary); }
+.text-primary { color: $primary; }
+.text-secondary { color: $secondary; }
+.text-muted { color: $text-light; }
+.text-red { color: $primary; }
+.text-yellow { color: $secondary; }
 // Spacing utilities (p, m, py, px, etc)
 .p-1 { padding: 0.25rem; }
 .p-2 { padding: 0.5rem; }
@@ -84,8 +83,3 @@
 .mb-12 { margin-bottom: 3rem; }
 
 .mx-auto { margin-left: auto; margin-right: auto; } 
-// Shadows, borders, rounded ✅
-// Responsive utilities (hidden, md-flex, lg-hidden, etc) ✅
-// Animations (fadeIn, slideIn) ✅
-// Scrollbar personalizado ✅
-// Extra helpers (.w-full, .h-full, .line-clamp, etc) ✅
