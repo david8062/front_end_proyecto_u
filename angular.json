@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "front_end": {
+    "start-io": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -24,11 +24,21 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/assets",
+                "output": "assets"
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/styles"
+              ]
+            },
             "server": "src/main.server.ts",
             "outputMode": "server",
             "ssr": {
@@ -63,10 +73,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "front_end:build:production"
+              "buildTarget": "start-io:build:production"
             },
             "development": {
-              "buildTarget": "front_end:build:development"
+              "buildTarget": "start-io:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -92,5 +102,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "11a54a2e-116d-4332-b2ce-c4a170b99c37"
   }
 }
