@@ -1,0 +1,14 @@
+<div class="auth-box">
+  <div class="auth-header">
+    <h2>Bienvenido a EduCampus</h2>
+    <p>Accede a tu cuenta o regístrate para comenzar</p>
+  </div>
+
+  <div class="auth-tabs">
+    <a class="auth-tab" routerLink="login" routerLinkActive="active">Iniciar Sesión</a>
+    <a class="auth-tab" routerLink="register" routerLinkActive="active">Registrarse</a>
+  </div>  
+
+  <!-- Aquí se renderiza el hijo según la ruta -->
+  <router-outlet></router-outlet>
+</div>
