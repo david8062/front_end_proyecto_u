@@ -1,3 +1,4 @@
+@use 'styles' as *;
 .auth-container {
             display: flex;
             justify-content: center;
@@ -8,15 +9,15 @@
 
         .auth-box {
             background: white;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow-lg);
+            border-radius: $radius;
+            box-shadow: $shadow;
             width: 100%;
             max-width: 450px;
             overflow: hidden;
         }
 
         .auth-header {
-            background: var(--gradient);
+            background: $gradient;
             color: white;
             padding: 30px;
             text-align: center;
@@ -41,13 +42,13 @@
             text-align: center;
             padding: 15px;
             cursor: pointer;
-            transition: var(--transition);
+            transition: $transition;
             font-weight: 500;
         }
 
         .auth-tab.active {
-            color: var(--primary);
-            border-bottom: 3px solid var(--primary);
+            color: $primary;
+            border-bottom: 3px solid $primary;
         }
 
         .auth-form {
