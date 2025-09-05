@@ -34,13 +34,17 @@
     }
   </div>
 
+  <!-- Mensaje de error del backend -->
   @if(errorMessage) {
-    <div class="error-message">{{ errorMessage }}</div>
+    <div class="error-message">
+      <i class="fas fa-exclamation-circle"></i> {{ errorMessage }}
+    </div>
   }
 
+  <!-- Botón de login con loading -->
   <button type="submit" class="btn btn-primary" [disabled]="loading">
     @if(loading) {
-      Cargando...
+      <i class="fas fa-spinner fa-spin"></i> Cargando...
     } @else {
       Iniciar Sesión
     }

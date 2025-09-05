@@ -25,25 +25,25 @@ export class LoginForm {
     });
   }
 
-  submit() {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
-
-    this.loading = true;
-    this.errorMessage = '';
-
-    this.authService.login(this.form.value).subscribe({
-      next: (response) => {
-        console.log('✅ Login exitoso', response);
-        this.loading = false;
-      },
-      error: (error) => {
-        console.error('❌ Error en login', error);
-        this.errorMessage = error?.error?.message || 'Credenciales incorrectas';
-        this.loading = false;
-      }
-    });
+submit() {
+  if (this.form.invalid) {
+    this.form.markAllAsTouched();
+    return;
   }
+
+  this.loading = true;
+  this.errorMessage = '';
+
+  this.authService.login(this.form.value).subscribe({
+    next: (response) => {
+      this.loading = false;
+    },
+    error: (error) => {
+      this.errorMessage = error?.error?.message || 'Credenciales incorrectas';
+      this.loading = false;
+    }
+  });
+}
+
+
 }
