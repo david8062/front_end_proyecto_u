@@ -140,79 +140,56 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 
 <!-- Featured Courses -->
-<!-- <section class="featured-courses">
-    <div class="container">
-        <div class="courses-header">
-            <h2 class="section-title">Cursos Destacados</h2>
-            <a href="#" class="view-all">Ver todos los cursos <i class="fas fa-arrow-right"></i></a>
-        </div>
-
-        <div class="courses-grid">
-            <div class="course-card">
-                <div class="course-image">
-                    <div class="course-badge">Ingeniería</div>
-                </div>
-                <div class="course-content">
-                    <div class="course-faculty">Facultad de Ingeniería</div>
-                    <div class="course-career">Ingeniería de Sistemas</div>
-                    <h3 class="course-title">Programación Avanzada con Angular</h3>
-                    <p class="course-description">Domina el framework Angular y desarrolla aplicaciones web modernas y
-                        escalables.</p>
-                    <div class="course-meta">
-                        <div class="course-info">
-                            <i class="fas fa-clock"></i>
-                            <span>60 horas</span>
-                        </div>
-                        <div class="course-price">Gratuito</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="course-card">
-                <div class="course-image">
-                    <div class="course-badge">Salud</div>
-                </div>
-                <div class="course-content">
-                    <div class="course-faculty">Ciencias de la Salud</div>
-                    <div class="course-career">Medicina</div>
-                    <h3 class="course-title">Anatomía Humana Avanzada</h3>
-                    <p class="course-description">Estudio detallado de la estructura del cuerpo humano y sus sistemas.
-                    </p>
-                    <div class="course-meta">
-                        <div class="course-info">
-                            <i class="fas fa-clock"></i>
-                            <span>45 horas</span>
-                        </div>
-                        <div class="course-price">Gratuito</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="course-card">
-                <div class="course-image">
-                    <div class="course-badge">Economía</div>
-                </div>
-                <div class="course-content">
-                    <div class="course-faculty">Ciencias Económicas</div>
-                    <div class="course-career">Administración</div>
-                    <h3 class="course-title">Gestión de Proyectos Agile</h3>
-                    <p class="course-description">Aprende metodologías ágiles para la gestión eficiente de proyectos.
-                    </p>
-                    <div class="course-meta">
-                        <div class="course-info">
-                            <i class="fas fa-clock"></i>
-                            <span>40 horas</span>
-                        </div>
-                        <div class="course-price">Gratuito</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<section class="featured-courses">
+  <div class="container">
+    <div class="courses-header">
+      <h2 class="section-title">Cursos Destacados</h2>
+      <a href="#" class="view-all">Ver todos los cursos <i class="fas fa-arrow-right"></i></a>
     </div>
-</section> --> 
+
+    <div class="courses-grid">
+      <ng-container *ngIf="courses$ | async as response">
+        <div
+          class="course-card"
+          *ngFor="let course of response.data"
+        >
+          <div class="course-image">
+            <img
+              [src]="course.url_image"
+              [alt]="course.title"
+              class="img-fluid"
+            />
+            <div class="course-badge">{{ course.level }}</div>
+          </div>
+
+          <div class="course-content">
+            <!-- Aquí puedes meter categorías si tu backend las trae -->
+            <div class="course-faculty">Facultad pendiente</div>
+            <div class="course-career">Carrera pendiente</div>
+
+            <h3 class="course-title">{{ course.title }}</h3>
+            <p class="course-description">{{ course.description }}</p>
+
+            <div class="course-meta">
+              <div class="course-info">
+                <i class="fas fa-user"></i>
+                <span>
+                  {{ course.teacher.primer_nombre }}
+                  {{ course.teacher.primer_apellido }}
+                </span>
+              </div>
+              <div class="course-price">Gratuito</div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</section>
+
 
 <!-- CTA Section -->
 <!-- <section class="cta">
