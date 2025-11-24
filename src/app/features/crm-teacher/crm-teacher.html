@@ -1,1 +1,36 @@
-<p>crm-teacher works!</p>
+<section class="teacher-dashboard">
+  <div class="container">
+
+    <div class="dashboard-header">
+      <h1 class="section-title">Panel del Profesor</h1>
+      <button class="btn btn-primary">
+        <i class="fas fa-plus"></i> Nuevo Curso
+      </button>
+    </div>
+
+    <!-- Tabs -->
+    <div class="teacher-tabs">
+      <div class="teacher-tab" 
+           [class.active]="activeTab === 'profile'"
+           (click)="activeTab = 'profile'">Mi Perfil</div>
+
+      <div class="teacher-tab"
+           [class.active]="activeTab === 'courses'"
+           (click)="activeTab = 'courses'">Mis Cursos</div>
+
+      <div class="teacher-tab"
+           [class.active]="activeTab === 'create'"
+           (click)="activeTab = 'create'">Crear Curso</div>
+
+      <div class="teacher-tab"
+           [class.active]="activeTab === 'stats'"
+           (click)="activeTab = 'stats'">Estadísticas</div>
+    </div>
+
+    <!-- Contenido de tabs -->
+    <app-teacher-profile *ngIf="activeTab === 'profile'"></app-teacher-profile>
+    <app-teacher-courses *ngIf="activeTab === 'courses'"></app-teacher-courses>
+    <app-teacher-create-course *ngIf="activeTab === 'create'"></app-teacher-create-course>
+    <app-teacher-stats *ngIf="activeTab === 'stats'"></app-teacher-stats>
+  </div>
+</section>

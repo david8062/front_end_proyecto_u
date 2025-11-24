@@ -8,5 +8,5 @@ export interface User {      // en lugar de uniqueID → más consistente
   facultyId: string;
   roles: string;
   passwordResetId: string | null;
-  password?: string;             // opcional si lo usas en registro
+  password?: string;             
 }
