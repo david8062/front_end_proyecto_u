@@ -1,0 +1,104 @@
+@use 'styles' as *;
+.create-course-section {
+    background: white;
+    border-radius: $radius;
+    padding: 30px;
+    box-shadow: $shadow;
+}
+
+.course-form {
+    max-width: 800px;
+}
+
+.form-section {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.section-title {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    color: $dark;
+}
+
+.file-upload {
+    border: 2px dashed #ddd;
+    border-radius: $radius;
+    padding: 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: $transition;
+}
+
+.file-upload:hover {
+    border-color: $primary;
+}
+
+.file-upload i {
+    font-size: 2.5rem;
+    color: $text-light;
+    margin-bottom: 15px;
+}
+
+.file-upload p {
+    color: $text-light;
+    margin-bottom: 10px;
+}
+
+.file-upload small {
+    color: $text-light;
+}
+
+.modules-list {
+    margin-top: 20px;
+}
+
+.module-item {
+    background: $light;
+    border-radius: $radius;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.module-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.module-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.lessons-list {
+    margin-left: 20px;
+}
+
+.lesson-item {
+    background: white;
+    border-radius: $radius;
+    padding: 12px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add-item-btn {
+    background: none;
+    border: none;
+    color: $primary;
+    font-family: $font-main;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.add-item-btn i {
+    margin-right: 8px;
+}

@@ -1,0 +1,129 @@
+@use 'styles' as *;
+/* Perfil del profesor */
+.profile-section {
+    background: white;
+    border-radius: $radius;
+    padding: 30px;
+    box-shadow: $shadow;
+    margin-bottom: 30px;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.profile-avatar {
+    position: relative;
+    margin-right: 30px;
+}
+
+.avatar-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: $gradient;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+.avatar-upload {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 35px;
+    height: 35px;
+    background: $primary;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    box-shadow: $shadow;
+}
+
+.profile-info h2 {
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+}
+
+.profile-title {
+    color: $text-light;
+    margin-bottom: 10px;
+}
+
+.profile-stats {
+    display: flex;
+    gap: 20px;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: $primary;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: $text-light;
+}
+
+.profile-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--dark);
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: $radius;
+    font-family: $font-main;
+    font-size: 1rem;
+    transition: $transition;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: $primary;
+    box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.1);
+}
+
+textarea.form-control {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 20px;
+}

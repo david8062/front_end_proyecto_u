@@ -1,0 +1,113 @@
+@use 'styles' as *;
+.courses-section {
+    background: white;
+    border-radius: var(--radius);
+    padding: 30px;
+    box-shadow: var(--shadow);
+}
+
+.courses-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.course-card {
+    background: white;
+    border: 1px solid #eee;
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.course-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.course-image {
+    height: 160px;
+    background: var(--gradient);
+    position: relative;
+}
+
+.course-status {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.status-published {
+    background: var(--success);
+    color: white;
+}
+
+.status-draft {
+    background: var(--secondary);
+    color: var(--dark);
+}
+
+.course-content {
+    padding: 20px;
+}
+
+.course-title {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: var(--dark);
+}
+
+.course-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+.course-stats {
+    display: flex;
+    align-items: center;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.course-stats i {
+    margin-right: 5px;
+}
+
+.course-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.action-btn {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--light);
+    color: var(--text);
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.action-btn:hover {
+    background: var(--primary);
+    color: white;
+}

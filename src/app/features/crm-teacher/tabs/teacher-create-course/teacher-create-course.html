@@ -1,1 +1,113 @@
-<p>teacher-create-course works!</p>
+<div class="tab-content" id="create-content">
+    <div class="create-course-section">
+        <h2 class="section-title">Crear Nuevo Curso</h2>
+
+        <form class="course-form">
+            <div class="form-section">
+                <h3 class="section-title">Información Básica</h3>
+
+                <div class="form-group">
+                    <label class="form-label">Título del curso</label>
+                    <input type="text" class="form-control" placeholder="Ej: Desarrollo Web con Angular">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Descripción del curso</label>
+                    <textarea class="form-control" placeholder="Describe el contenido y objetivos del curso..."
+                        rows="4"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Categoría/Facultad</label>
+                    <select class="form-control">
+                        <option>Seleccionar facultad</option>
+                        <option>Facultad de Ingeniería</option>
+                        <option>Ciencias de la Salud</option>
+                        <option>Ciencias Económicas</option>
+                        <option>Humanidades y Artes</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Carrera</label>
+                    <select class="form-control">
+                        <option>Seleccionar carrera</option>
+                        <option>Ingeniería de Sistemas</option>
+                        <option>Ingeniería Civil</option>
+                        <option>Medicina</option>
+                        <option>Administración</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Nivel del curso</label>
+                    <select class="form-control">
+                        <option>Principiante</option>
+                        <option>Intermedio</option>
+                        <option>Avanzado</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3 class="section-title">Imagen del curso</h3>
+                <div class="file-upload">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Arrastra una imagen o haz clic para subir</p>
+                    <small>Recomendado: 1280x720px, formato JPG o PNG</small>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3 class="section-title">Estructura del curso</h3>
+
+                <div class="modules-list">
+                    <div class="module-item">
+                        <div class="module-header">
+                            <input type="text" class="form-control" value="Módulo 1: Introducción" style="width: auto;">
+                            <div class="module-actions">
+                                <button class="action-btn"><i class="fas fa-arrow-up"></i></button>
+                                <button class="action-btn"><i class="fas fa-arrow-down"></i></button>
+                                <button class="action-btn"><i class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="lessons-list">
+                            <div class="lesson-item">
+                                <input type="text" class="form-control" value="¿Qué es Angular?" style="width: auto;">
+                                <div class="course-actions">
+                                    <button class="action-btn"><i class="fas fa-arrow-up"></i></button>
+                                    <button class="action-btn"><i class="fas fa-arrow-down"></i></button>
+                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+
+                            <div class="lesson-item">
+                                <input type="text" class="form-control" value="Configuración del entorno"
+                                    style="width: auto;">
+                                <div class="course-actions">
+                                    <button class="action-btn"><i class="fas fa-arrow-up"></i></button>
+                                    <button class="action-btn"><i class="fas fa-arrow-down"></i></button>
+                                    <button class="action-btn"><i class="fas fa-trash"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="add-item-btn">
+                            <i class="fas fa-plus"></i> Añadir lección
+                        </button>
+                    </div>
+                </div>
+
+                <button class="add-item-btn">
+                    <i class="fas fa-plus"></i> Añadir módulo
+                </button>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary">Guardar borrador</button>
+                <button type="submit" class="btn btn-primary">Publicar curso</button>
+            </div>
+        </form>
+    </div>
+</div>

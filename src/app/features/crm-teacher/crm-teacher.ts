@@ -3,11 +3,12 @@ import { TeacherProfile } from './tabs/teacher-profile/teacher-profile';
 import { TeacherCourses } from './tabs/teacher-courses/teacher-courses';
 import { TeacherCreateCourse } from './tabs/teacher-create-course/teacher-create-course';
 import { TeacherStats } from './tabs/teacher-stats/teacher-stats';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-crm-teacher',
   standalone: true,
-  imports: [TeacherProfile, TeacherCourses, TeacherCreateCourse, TeacherStats],
+  imports: [CommonModule, TeacherProfile, TeacherCourses, TeacherCreateCourse, TeacherStats],
   templateUrl: './crm-teacher.html',
   styleUrl: './crm-teacher.scss'
 })
