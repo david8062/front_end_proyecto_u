@@ -1,109 +1,103 @@
-@use 'styles' as *;
+@use 'vars' as *;
 
+// ── Wrapper del dashboard ──────────────────────────────────────
 .teacher-dashboard {
-    padding: 40px 0;
+  background: $light;
+  min-height: 100vh;
+  padding: 40px 0 80px;
 }
 
+// ── Header ────────────────────────────────────────────────────
 .dashboard-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
+  margin-bottom: 32px;
+
+  .section-title {
+    font-size: 2rem;
+    color: $bg-dark;
+    text-align: left;
+
+    &:after {
+      margin: 12px 0 0;
+    }
+  }
 }
 
-.section-title {
-    font-size: 2.2rem;
-    color: $dark;
-    position: relative;
-}
-
-.section-title:after {
-    content: '';
-    display: block;
-    width: 80px;
-    height: 4px;
-    background: $primary;
-    margin-top: 15px;
-    border-radius: 2px;
-}
-
-
-.btn-primary:hover {
-    background: $primary-dark;
-    transform: translateY(-2px);
-    box-shadow: $shadow-lg;
-}
-
-.btn-secondary {
-    background: $secondary;
-    color: var(--dark);
-}
-
-.btn-secondary:hover {
-    background: #e59400;
-    transform: translateY(-2px);
-    box-shadow: $shadow-lg;
-}
-
-/* Tabs de navegación */
+// ── Tabs de navegación ────────────────────────────────────────
 .teacher-tabs {
-    display: flex;
-    border-bottom: 1px solid #eee;
-    margin-bottom: 30px;
+  display: flex;
+  gap: 4px;
+  background: white;
+  border-radius: $radius-lg;
+  padding: 6px;
+  box-shadow: $shadow;
+  margin-bottom: 28px;
+  width: fit-content;
+
+  @media (max-width: 700px) {
+    width: 100%;
+    flex-wrap: wrap;
+  }
 }
 
 .teacher-tab {
-    padding: 15px 30px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: $transition;
-    border-bottom: 3px solid transparent;
+  padding: 10px 22px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: $text-light;
+  transition: background 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+
+  &:hover {
+    background: $light;
+    color: $dark;
+  }
+
+  &.active {
+    background: $primary;
+    color: white;
+    box-shadow: 0 4px 12px rgba($primary, 0.3);
+  }
+
+  @media (max-width: 700px) {
+    flex: 1;
+    text-align: center;
+  }
 }
 
-.teacher-tab.active {
-    color: $primary;
-    border-bottom-color: $primary;
-}
-
+// ── Contenido de tabs ─────────────────────────────────────────
 .tab-content {
-    display: none;
-}
+  display: none;
 
-.tab-content.active {
+  &.active {
     display: block;
+  }
 }
 
+// ── Botón secundario local ─────────────────────────────────────
+.btn-secondary {
+  background: $light;
+  color: $dark;
+  border-color: transparent;
 
+  &:hover {
+    background: #dde3ef;
+    color: $dark;
+    transform: translateY(-2px);
+    box-shadow: $shadow;
+  }
+}
 
-/* Responsive */
+// ── Responsive ────────────────────────────────────────────────
 @media (max-width: 768px) {
-    .nav-links {
-        display: none;
-    }
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+  }
 
-    .profile-header {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .profile-avatar {
-        margin-right: 0;
-        margin-bottom: 20px;
-    }
-
-    .profile-form {
-        grid-template-columns: 1fr;
-    }
-
-    .courses-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .teacher-tabs {
-        flex-wrap: wrap;
-    }
-
-    .teacher-tab {
-        margin-bottom: 10px;
-    }
+  .profile-avatar {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
 }

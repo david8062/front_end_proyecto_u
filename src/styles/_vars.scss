@@ -1,0 +1,3 @@
+// Variables-only entry point for component SCSS files.
+// Safe to @use in components — no CSS output, only SCSS variables.
+@forward 'variables';

@@ -1,17 +1,17 @@
 <div class="tab-content" id="create-content">
-  <div class="create-course-section">
 
-    <!-- Disponibilidad -->
-    <div class="form-section" style="margin-bottom:2rem;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
-        <h2 class="section-title">Disponibilidad horaria</h2>
-        <button class="btn btn-primary" (click)="showAddAvailability.set(!showAddAvailability())">
-          <i class="fas fa-plus"></i> Agregar bloque
-        </button>
-      </div>
+  <!-- ── Disponibilidad horaria ────────────────────────────── -->
+  <div class="dash-panel">
+    <div class="dash-panel-header">
+      <h2 class="dash-title">Disponibilidad horaria</h2>
+      <button class="btn btn-primary" (click)="showAddAvailability.set(!showAddAvailability())">
+        <i class="fas fa-plus"></i> Agregar bloque
+      </button>
+    </div>
 
-      @if (showAddAvailability()) {
-        <div class="course-card" style="padding:1rem; margin-bottom:1rem;">
+    @if (showAddAvailability()) {
+      <div class="form-card">
+        <div class="availability-form-grid">
           <div class="form-group">
             <label class="form-label">Día de la semana</label>
             <select class="form-control" [(ngModel)]="newAvailability.day_of_week" name="day">
@@ -29,53 +29,58 @@
             <input type="time" class="form-control" [(ngModel)]="newAvailability.end_time" name="end_time">
           </div>
           <div class="form-group">
-            <label class="form-label">Duración de sesión (minutos)</label>
+            <label class="form-label">Duración de sesión (min)</label>
             <input type="number" class="form-control" [(ngModel)]="newAvailability.slot_duration_minutes"
-              name="slot_duration" min="15" step="15"
-              placeholder="Ej: 60 para clases de 1 hora">
-          </div>
-          <div class="form-actions">
-            <button type="button" class="btn btn-secondary"
-              (click)="showAddAvailability.set(false)">Cancelar</button>
-            <button type="button" class="btn btn-primary"
-              [disabled]="addingAvailability()" (click)="addAvailability()">
-              {{ addingAvailability() ? 'Guardando...' : 'Agregar bloque' }}
-            </button>
+              name="slot_duration" min="15" step="15" placeholder="Ej: 60">
           </div>
         </div>
-      }
-
-      <div class="modules-list">
-        @for (block of availability(); track block.uniqueID) {
-          <div class="module-item" style="display:flex; justify-content:space-between; align-items:center; padding:0.75rem 1rem;">
-            <div>
-              <strong>{{ getDayLabel(block.day_of_week) }}</strong>
-              · {{ block.start_time }} – {{ block.end_time }}
-              <small style="margin-left:0.5rem; color:#888">
-                (sesiones de {{ block.slot_duration_minutes }} min)
-              </small>
-            </div>
-            <button class="action-btn" (click)="deleteAvailability(block.uniqueID)">
-              <i class="fas fa-trash"></i>
-            </button>
-          </div>
-        } @empty {
-          <p style="color:#888; padding:0.5rem">Aún no tienes bloques horarios configurados.</p>
-        }
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary"
+            (click)="showAddAvailability.set(false)">Cancelar</button>
+          <button type="button" class="btn btn-primary"
+            [disabled]="addingAvailability()" (click)="addAvailability()">
+            {{ addingAvailability() ? 'Guardando...' : 'Agregar bloque' }}
+          </button>
+        </div>
       </div>
+    }
+
+    <div class="items-list">
+      @for (block of availability(); track block.uniqueID) {
+        <div class="item-row">
+          <div class="item-row-icon item-row-icon-blue">
+            <i class="fas fa-clock"></i>
+          </div>
+          <div class="item-row-body">
+            <strong>{{ getDayLabel(block.day_of_week) }}</strong>
+            <span>{{ block.start_time }} – {{ block.end_time }}</span>
+            <small>Sesiones de {{ block.slot_duration_minutes }} min</small>
+          </div>
+          <button class="subject-delete-btn" (click)="deleteAvailability(block.uniqueID)">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      } @empty {
+        <p class="empty-state">
+          <i class="fas fa-calendar-times"></i>
+          Aún no tienes bloques horarios configurados.
+        </p>
+      }
+    </div>
+  </div>
+
+  <!-- ── Tarifas ────────────────────────────────────────────── -->
+  <div class="dash-panel">
+    <div class="dash-panel-header">
+      <h2 class="dash-title">Tarifas</h2>
+      <button class="btn btn-primary" (click)="showAddPricing.set(!showAddPricing())">
+        <i class="fas fa-plus"></i> Agregar tarifa
+      </button>
     </div>
 
-    <!-- Tarifas -->
-    <div class="form-section">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
-        <h2 class="section-title">Tarifas</h2>
-        <button class="btn btn-primary" (click)="showAddPricing.set(!showAddPricing())">
-          <i class="fas fa-plus"></i> Agregar tarifa
-        </button>
-      </div>
-
-      @if (showAddPricing()) {
-        <div class="course-card" style="padding:1rem; margin-bottom:1rem;">
+    @if (showAddPricing()) {
+      <div class="form-card">
+        <div class="pricing-form-grid">
           <div class="form-group">
             <label class="form-label">Tipo de servicio</label>
             <select class="form-control" [(ngModel)]="newPricing.service_type" name="service_type">
@@ -89,41 +94,47 @@
             <input type="number" class="form-control" [(ngModel)]="newPricing.price"
               name="price" min="0" step="1000">
           </div>
-          <div class="form-group">
+          <div class="form-group pricing-desc">
             <label class="form-label">Descripción (opcional)</label>
             <input type="text" class="form-control" [(ngModel)]="newPricing.description"
               name="description" placeholder="Ej: Incluye retroalimentación detallada">
           </div>
-          <div class="form-actions">
-            <button type="button" class="btn btn-secondary"
-              (click)="showAddPricing.set(false)">Cancelar</button>
-            <button type="button" class="btn btn-primary"
-              [disabled]="addingPricing()" (click)="addPricingPlan()">
-              {{ addingPricing() ? 'Guardando...' : 'Agregar tarifa' }}
-            </button>
-          </div>
         </div>
-      }
-
-      <div class="modules-list">
-        @for (plan of pricingPlans(); track plan.uniqueID) {
-          <div class="module-item" style="display:flex; justify-content:space-between; align-items:center; padding:0.75rem 1rem;">
-            <div>
-              <strong>{{ getServiceLabel(plan.service_type) }}</strong>
-              — ${{ plan.price | number }} COP
-              @if (plan.description) {
-                <small style="display:block; color:#888">{{ plan.description }}</small>
-              }
-            </div>
-            <button class="action-btn" (click)="deletePricingPlan(plan.uniqueID)">
-              <i class="fas fa-trash"></i>
-            </button>
-          </div>
-        } @empty {
-          <p style="color:#888; padding:0.5rem">Aún no has configurado tarifas.</p>
-        }
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary"
+            (click)="showAddPricing.set(false)">Cancelar</button>
+          <button type="button" class="btn btn-primary"
+            [disabled]="addingPricing()" (click)="addPricingPlan()">
+            {{ addingPricing() ? 'Guardando...' : 'Agregar tarifa' }}
+          </button>
+        </div>
       </div>
-    </div>
+    }
 
+    <div class="items-list">
+      @for (plan of pricingPlans(); track plan.uniqueID) {
+        <div class="item-row">
+          <div class="item-row-icon item-row-icon-teal">
+            <i class="fas fa-tag"></i>
+          </div>
+          <div class="item-row-body">
+            <strong>{{ getServiceLabel(plan.service_type) }}</strong>
+            <span>${{ plan.price | number }} COP</span>
+            @if (plan.description) {
+              <small>{{ plan.description }}</small>
+            }
+          </div>
+          <button class="subject-delete-btn" (click)="deletePricingPlan(plan.uniqueID)">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      } @empty {
+        <p class="empty-state">
+          <i class="fas fa-hand-holding-usd"></i>
+          Aún no has configurado tarifas.
+        </p>
+      }
+    </div>
   </div>
+
 </div>
