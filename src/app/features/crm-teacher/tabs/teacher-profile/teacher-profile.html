@@ -1,78 +1,323 @@
-<div class="tab-content active" id="profile-content">
-    <div class="profile-section">
-        <div class="profile-header">
-            <div class="profile-avatar">
-                <div class="avatar-image">JD</div>
-                <div class="avatar-upload">
-                    <i class="fas fa-camera"></i>
-                </div>
-            </div>
-            <div class="profile-info">
-                <h2>Prof. Juan Díaz</h2>
-                <p class="profile-title">Doctor en Ciencias de la Computación</p>
-                <div class="profile-stats">
-                    <div class="stat-item">
-                        <div class="stat-value">8</div>
-                        <div class="stat-label">Cursos</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value">1,245</div>
-                        <div class="stat-label">Estudiantes</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-value">4.8</div>
-                        <div class="stat-label">Rating</div>
-                    </div>
-                </div>
-            </div>
+@if (loading()) {
+  <div class="tab-content active">
+    <p>Cargando perfil...</p>
+  </div>
+} @else if (!hasProfile()) {
+  <div class="tab-content active">
+    <div class="profile-editor-layout">
+
+      <!-- ── Formulario de creación ───────────────────────────── -->
+      <div class="profile-section">
+        <h2 class="section-title">Configura tu perfil de asesor</h2>
+        <form class="profile-form" (ngSubmit)="createProfile()">
+          <div class="form-group full-width">
+            <label class="form-label">Especialización</label>
+            <input type="text" class="form-control" [(ngModel)]="form.specialization" name="specialization"
+              placeholder="Ej: Cálculo, Programación, Estadística">
+          </div>
+          <div class="form-group full-width">
+            <label class="form-label">Descripción</label>
+            <textarea class="form-control" rows="3" [(ngModel)]="form.description" name="description"
+              placeholder="Cuéntale a los estudiantes sobre ti..."></textarea>
+          </div>
+          <div class="form-group full-width">
+            <label class="form-label">Experiencia</label>
+            <textarea class="form-control" rows="3" [(ngModel)]="form.experience" name="experience"
+              placeholder="Tu experiencia académica y profesional..."></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Sitio web</label>
+            <input type="url" class="form-control" [(ngModel)]="form.web_site" name="web_site">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Redes sociales</label>
+            <input type="text" class="form-control" [(ngModel)]="form.social_networks" name="social_networks"
+              placeholder="LinkedIn, GitHub, etc.">
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" [disabled]="saving()">
+              {{ saving() ? 'Creando...' : 'Crear perfil' }}
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- ── Panel de previsualización ───────────────────────────── -->
+      <div class="preview-panel">
+        <div class="preview-label">
+          <i class="fas fa-eye"></i> Vista previa
+          <span>Así te verán los estudiantes</span>
         </div>
 
-        <form class="profile-form">
-            <div class="form-group">
-                <label class="form-label">Nombre completo</label>
-                <input type="text" class="form-control" value="Juan Díaz">
+        <div class="preview-card">
+          <div class="preview-card-header">
+            <div class="preview-avatar">
+              {{ form.specialization.charAt(0).toUpperCase() || 'T' }}
+            </div>
+            <div class="preview-badge-new">Nuevo asesor</div>
+          </div>
+
+          <div class="preview-card-body">
+            <h3 class="preview-name">{{ form.specialization || 'Tu especialización' }}</h3>
+            <div class="preview-stars">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+              <i class="fas fa-star"></i><i class="fas fa-star"></i>
+              <span>0 sesiones</span>
             </div>
 
-            <div class="form-group">
-                <label class="form-label">Correo electrónico</label>
-                <input type="email" class="form-control" value="juan.diaz@universidad.edu">
+            @if (form.description) {
+              <p class="preview-description">{{ form.description }}</p>
+            } @else {
+              <p class="preview-description preview-placeholder">
+                Tu descripción aparecerá aquí...
+              </p>
+            }
+
+            @if (form.experience) {
+              <div class="preview-experience">
+                <i class="fas fa-briefcase"></i>
+                <span>{{ form.experience }}</span>
+              </div>
+            }
+
+            <div class="preview-tags">
+              <span class="preview-tag"><i class="fas fa-video"></i> Virtual</span>
+              <span class="preview-tag"><i class="fas fa-map-marker-alt"></i> Presencial</span>
+              <span class="preview-tag"><i class="fas fa-file-alt"></i> Tareas</span>
             </div>
 
-            <div class="form-group">
-                <label class="form-label">Título profesional</label>
-                <input type="text" class="form-control" value="Doctor en Ciencias de la Computación">
+            <div class="preview-cta">
+              <button class="btn-preview-primary" disabled>Solicitar sesión</button>
+              <button class="btn-preview-ghost" disabled><i class="fas fa-heart"></i></button>
             </div>
+          </div>
+        </div>
 
-            <div class="form-group">
-                <label class="form-label">Departamento/Facultad</label>
-                <input type="text" class="form-control" value="Facultad de Ingeniería">
-            </div>
+        <p class="preview-hint">
+          <i class="fas fa-info-circle"></i>
+          Completa tu perfil para que los estudiantes puedan encontrarte.
+        </p>
+      </div>
 
-            <div class="form-group full-width">
-                <label class="form-label">Biografía</label>
-                <textarea
-                    class="form-control">Soy Doctor en Ciencias de la Computación con más de 10 años de experiencia en desarrollo de software y enseñanza universitaria. Especializado en frameworks modernos de JavaScript y arquitectura de software. Apasionado por la educación y la transferencia de conocimiento a las nuevas generaciones de desarrolladores.</textarea>
-            </div>
-
-            <div class="form-group full-width">
-                <label class="form-label">Áreas de especialización</label>
-                <input type="text" class="form-control" value="Angular, React, Node.js, Arquitectura de Software">
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">Sitio web</label>
-                <input type="url" class="form-control" value="https://juandiaz.dev">
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">LinkedIn</label>
-                <input type="url" class="form-control" value="https://linkedin.com/in/juandiaz">
-            </div>
-
-            <div class="form-actions">
-                <button type="button" class="btn btn-secondary">Cancelar</button>
-                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-            </div>
-        </form>
     </div>
-</div>
+  </div>
+} @else {
+  <div class="tab-content active" id="profile-content">
+    <div class="profile-editor-layout">
+
+      <!-- ── Formulario de edición ────────────────────────────── -->
+      <div>
+        <div class="profile-section">
+          <div class="profile-header">
+            <div class="profile-avatar">
+              <div class="avatar-image">
+                {{ profile()?.specialization?.charAt(0)?.toUpperCase() ?? 'P' }}
+              </div>
+            </div>
+            <div class="profile-info">
+              <h2>{{ profile()?.specialization ?? 'Mi perfil' }}</h2>
+              <p class="profile-title">{{ profile()?.experience ?? '' }}</p>
+              <div class="profile-stats">
+                <div class="stat-item">
+                  <div class="stat-value">{{ profile()?.subjects?.length ?? 0 }}</div>
+                  <div class="stat-label">Materias</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-value">{{ profile()?.education?.length ?? 0 }}</div>
+                  <div class="stat-label">Títulos</div>
+                </div>
+                <div class="stat-item">
+                  <div class="stat-value">
+                    {{ profile()?.is_verified ? '✓' : 'Pendiente' }}
+                  </div>
+                  <div class="stat-label">Verificación</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <form class="profile-form" (ngSubmit)="saveProfile()">
+            <div class="form-group full-width">
+              <label class="form-label">Descripción</label>
+              <textarea class="form-control" rows="3" [(ngModel)]="form.description"
+                name="description"></textarea>
+            </div>
+            <div class="form-group full-width">
+              <label class="form-label">Experiencia</label>
+              <textarea class="form-control" rows="3" [(ngModel)]="form.experience"
+                name="experience"></textarea>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Especialización</label>
+              <input type="text" class="form-control" [(ngModel)]="form.specialization"
+                name="specialization">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Sitio web</label>
+              <input type="url" class="form-control" [(ngModel)]="form.web_site" name="web_site">
+            </div>
+            <div class="form-group full-width">
+              <label class="form-label">Redes sociales</label>
+              <input type="text" class="form-control" [(ngModel)]="form.social_networks"
+                name="social_networks">
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary" [disabled]="saving()">
+                {{ saving() ? 'Guardando...' : 'Guardar cambios' }}
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Educación -->
+        <div class="profile-section" style="margin-top: 1.5rem;">
+          <div class="section-header-row">
+            <h3 class="section-title">Formación académica</h3>
+            <button type="button" class="btn btn-primary" (click)="showAddEducation.set(!showAddEducation())">
+              <i class="fas fa-plus"></i> Agregar título
+            </button>
+          </div>
+
+          @if (showAddEducation()) {
+            <div class="course-card edu-form-card">
+              <div class="form-group">
+                <label class="form-label">Nivel de estudios</label>
+                <select class="form-control" [(ngModel)]="newEducation.degree" name="degree">
+                  @for (opt of degreeOptions; track opt[0]) {
+                    <option [value]="opt[0]">{{ opt[1] }}</option>
+                  }
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Institución</label>
+                <input type="text" class="form-control" [(ngModel)]="newEducation.institution"
+                  name="institution" placeholder="Universidad / Instituto">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Área / Carrera</label>
+                <input type="text" class="form-control" [(ngModel)]="newEducation.field"
+                  name="field" placeholder="Ej: Ingeniería de Sistemas">
+              </div>
+              <div class="edu-year-row">
+                <div class="form-group">
+                  <label class="form-label">Año inicio</label>
+                  <input type="number" class="form-control" [(ngModel)]="newEducation.start_year"
+                    name="start_year">
+                </div>
+                @if (!newEducation.is_current) {
+                  <div class="form-group">
+                    <label class="form-label">Año fin</label>
+                    <input type="number" class="form-control" [(ngModel)]="newEducation.end_year"
+                      name="end_year">
+                  </div>
+                }
+              </div>
+              <div class="form-group">
+                <label class="checkbox-label">
+                  <input type="checkbox" [(ngModel)]="newEducation.is_current" name="is_current">
+                  En curso actualmente
+                </label>
+              </div>
+              <div class="form-actions">
+                <button type="button" class="btn btn-secondary"
+                  (click)="showAddEducation.set(false)">Cancelar</button>
+                <button type="button" class="btn btn-primary"
+                  [disabled]="addingEducation()" (click)="addEducation()">
+                  {{ addingEducation() ? 'Guardando...' : 'Agregar' }}
+                </button>
+              </div>
+            </div>
+          }
+
+          @for (edu of profile()?.education ?? []; track edu.uniqueID) {
+            <div class="edu-item">
+              <div class="edu-icon"><i class="fas fa-graduation-cap"></i></div>
+              <div class="edu-info">
+                <strong>{{ edu.field }}</strong>
+                <span>{{ edu.institution }}</span>
+                <small>{{ edu.degree }} · {{ edu.start_year }}{{ edu.is_current ? ' – Actualidad' : (edu.end_year ? ' – ' + edu.end_year : '') }}</small>
+              </div>
+              <button class="action-btn" (click)="deleteEducation(edu.uniqueID)">
+                <i class="fas fa-trash"></i>
+              </button>
+            </div>
+          } @empty {
+            <p class="empty-hint">Aún no has agregado tu formación académica.</p>
+          }
+        </div>
+      </div>
+
+      <!-- ── Panel de previsualización ───────────────────────────── -->
+      <div class="preview-panel">
+        <div class="preview-label">
+          <i class="fas fa-eye"></i> Vista previa
+          <span>Así te verán los estudiantes</span>
+        </div>
+
+        <div class="preview-card">
+          <div class="preview-card-header">
+            <div class="preview-avatar">
+              {{ form.specialization.charAt(0).toUpperCase() || profile()?.specialization?.charAt(0)?.toUpperCase() || 'T' }}
+            </div>
+            @if (profile()?.is_verified) {
+              <div class="preview-badge-verified"><i class="fas fa-check-circle"></i> Verificado</div>
+            }
+          </div>
+
+          <div class="preview-card-body">
+            <h3 class="preview-name">{{ form.specialization || profile()?.specialization || 'Tu especialización' }}</h3>
+            <div class="preview-stars">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+              <i class="fas fa-star"></i><i class="fas fa-star"></i>
+              <span>{{ profile()?.subjects?.length ?? 0 }} materias</span>
+            </div>
+
+            @if (form.description) {
+              <p class="preview-description">{{ form.description }}</p>
+            } @else {
+              <p class="preview-description preview-placeholder">
+                Tu descripción aparecerá aquí...
+              </p>
+            }
+
+            @if (form.experience) {
+              <div class="preview-experience">
+                <i class="fas fa-briefcase"></i>
+                <span>{{ form.experience }}</span>
+              </div>
+            }
+
+            @if ((profile()?.education?.length ?? 0) > 0) {
+              <div class="preview-education">
+                <div class="preview-edu-title"><i class="fas fa-graduation-cap"></i> Formación</div>
+                @for (edu of profile()!.education!.slice(0, 2); track edu.uniqueID) {
+                  <div class="preview-edu-item">
+                    <strong>{{ edu.field }}</strong>
+                    <span>{{ edu.institution }} · {{ edu.start_year }}{{ edu.is_current ? '–hoy' : (edu.end_year ? '–' + edu.end_year : '') }}</span>
+                  </div>
+                }
+              </div>
+            }
+
+            <div class="preview-tags">
+              <span class="preview-tag"><i class="fas fa-video"></i> Virtual</span>
+              <span class="preview-tag"><i class="fas fa-map-marker-alt"></i> Presencial</span>
+              <span class="preview-tag"><i class="fas fa-file-alt"></i> Tareas</span>
+            </div>
+
+            <div class="preview-cta">
+              <button class="btn-preview-primary" disabled>Solicitar sesión</button>
+              <button class="btn-preview-ghost" disabled><i class="fas fa-heart"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <p class="preview-hint">
+          <i class="fas fa-info-circle"></i>
+          Los cambios se reflejan en tiempo real.
+        </p>
+      </div>
+
+    </div>
+  </div>
+}

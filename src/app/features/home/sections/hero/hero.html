@@ -1,13 +1,118 @@
 <section class="hero">
-    <div class="container">
-        <div class="hero-content">
-            <h1>La plataforma educativa de tu universidad</h1>
-            <p>Conectamos profesores y estudiantes en un entorno de aprendizaje interactivo. Accede a cursos, materiales
-                y videos educativos cuando quieras y donde quieras.</p>
-            <div class="hero-buttons">
-                <a href="#" class="btn btn-primary">Explorar Cursos</a>
-                <a href="#" class="btn btn-secondary">Ser Instructor</a>
-            </div>
+  <div class="hero-bg">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="grid-lines"></div>
+  </div>
+
+  <div class="container">
+    <div class="hero-layout">
+
+      <!-- Contenido izquierdo -->
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="badge-pulse"></span>
+          Marketplace de Tutorías
         </div>
+
+        <h1>
+          Aprende de quien
+          <span class="text-highlight">ya lo domina.</span>
+        </h1>
+
+        <p class="hero-description">
+          Conectamos estudiantes con tutores que ofrecen clases personalizadas,
+          revisión de tareas y acompañamiento académico.
+          Aprende a tu ritmo, con quien realmente sabe.
+        </p>
+
+        <div class="hero-actions">
+          <a href="/courses" class="btn btn-primary btn-hero">
+            Buscar Tutor
+            <i class="fas fa-search"></i>
+          </a>
+          <a href="/auth/register" class="btn btn-ghost btn-hero">
+            Ofrecer Clases
+          </a>
+        </div>
+
+        <div class="hero-social-proof">
+          <div class="proof-avatars">
+            <div class="proof-avatar" style="background:#4361EE">JM</div>
+            <div class="proof-avatar" style="background:#E63946">SC</div>
+            <div class="proof-avatar" style="background:#06D6A0">AR</div>
+            <div class="proof-avatar" style="background:#FFD60A;color:#0F172A">LP</div>
+          </div>
+          <span>+2,400 tutores disponibles ahora</span>
+        </div>
+      </div>
+
+      <!-- Visual derecho con cards flotantes -->
+      <div class="hero-visual">
+
+        <!-- Card de sesión activa -->
+        <div class="float-card card-main">
+          <div class="card-tag">SESIÓN EN CURSO</div>
+          <div class="card-course-icon">
+            <i class="fas fa-chalkboard-teacher"></i>
+          </div>
+          <h4>Cálculo Diferencial</h4>
+          <p class="card-meta">Tutor: Carlos Mendoza · Ingeniería</p>
+          <div class="card-progress">
+            <div class="progress-track">
+              <div class="progress-fill"></div>
+            </div>
+            <span>45 min</span>
+          </div>
+        </div>
+
+        <!-- Card de calificación -->
+        <div class="float-card card-rating">
+          <div class="rating-stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+          <div class="rating-value">4.9</div>
+          <div class="rating-label">Calificación promedio</div>
+        </div>
+
+        <!-- Card de tutores -->
+        <div class="float-card card-courses">
+          <div class="courses-icon">
+            <i class="fas fa-user-graduate"></i>
+          </div>
+          <div class="courses-count">2.4K</div>
+          <div class="courses-label">Tutores activos</div>
+        </div>
+
+      </div>
     </div>
+
+    <!-- Barra de estadísticas -->
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-number">2.4K+</span>
+        <span class="stat-label">Tutores</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-number">180+</span>
+        <span class="stat-label">Materias</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-number">15K+</span>
+        <span class="stat-label">Sesiones</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-item">
+        <span class="stat-number">98%</span>
+        <span class="stat-label">Satisfacción</span>
+      </div>
+    </div>
+  </div>
 </section>

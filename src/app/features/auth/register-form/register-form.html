@@ -1,155 +1,167 @@
-<form class="auth-form" id="register-form" (ngSubmit)="onSubmit()" #registerForm="ngForm">
-  <!-- Nombre -->
-  <div class="form-group">
-    <label for="register-first-name">Nombre</label>
-    <div class="input-with-icon">
-      <i class="fas fa-user input-icon"></i>
+<form class="register-form" id="register-form" (ngSubmit)="onSubmit()" #registerForm="ngForm">
+
+  <div class="register-grid">
+
+    <!-- Nombre -->
+    <div class="form-group">
+      <label class="form-label">
+        <i class="fas fa-user label-icon"></i> Nombre <span class="required">*</span>
+      </label>
       <input
         type="text"
-        id="register-first-name"
         class="form-control"
-        placeholder="Tu nombre"
+        placeholder="Tu primer nombre"
         [(ngModel)]="user.firstName"
-        name="first_name"
+        name="firstName"
         required
       />
     </div>
-  </div>
 
-  <!-- Segundo Nombre -->
-  <div class="form-group">
-    <label for="register-middle-name">Segundo Nombre</label>
-    <input
-      type="text"
-      id="register-middle-name"
-      class="form-control"
-      placeholder="Segundo nombre"
-      [(ngModel)]="user.middleName"
-      name="middle_name"
-    />
-  </div>
+    <!-- Segundo nombre -->
+    <div class="form-group">
+      <label class="form-label">
+        <i class="fas fa-user label-icon"></i> Segundo nombre
+        <span class="optional">opcional</span>
+      </label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Segundo nombre"
+        [(ngModel)]="user.middleName"
+        name="middleName"
+      />
+    </div>
 
-  <!-- Apellido -->
-  <div class="form-group">
-    <label for="register-last-name">Primer Apellido</label>
-    <input
-      type="text"
-      id="register-last-name"
-      class="form-control"
-      placeholder="Primer apellido"
-      [(ngModel)]="user.lastName"
-      name="last_name"
-      required
-    />
-  </div>
+    <!-- Primer apellido -->
+    <div class="form-group">
+      <label class="form-label">
+        <i class="fas fa-id-card label-icon"></i> Primer apellido <span class="required">*</span>
+      </label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Primer apellido"
+        [(ngModel)]="user.lastName"
+        name="lastName"
+        required
+      />
+    </div>
 
-  <!-- Segundo Apellido -->
-  <div class="form-group">
-    <label for="register-second-last-name">Segundo Apellido</label>
-    <input
-      type="text"
-      id="register-second-last-name"
-      class="form-control"
-      placeholder="Segundo apellido"
-      [(ngModel)]="user.secondLastName"
-      name="second_last_name"
-    />
-  </div>
+    <!-- Segundo apellido -->
+    <div class="form-group">
+      <label class="form-label">
+        <i class="fas fa-id-card label-icon"></i> Segundo apellido
+      </label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Segundo apellido"
+        [(ngModel)]="user.secondLastName"
+        name="secondLastName"
+      />
+    </div>
 
-  <!-- Código Estudiantil -->
-  <div class="form-group">
-    <label for="register-student-code">Código Estudiantil</label>
-    <input
-      type="text"
-      id="register-student-code"
-      class="form-control"
-      placeholder="Ej: 20231234"
-      [(ngModel)]="user.studentCode"
-      name="student_code"
-    />
-  </div>
-
-  <!-- Correo -->
-  <div class="form-group">
-    <label for="register-email">Correo electrónico</label>
-    <div class="input-with-icon">
-      <i class="fas fa-envelope input-icon"></i>
+    <!-- Email (full width) -->
+    <div class="form-group full-width">
+      <label class="form-label">
+        <i class="fas fa-envelope label-icon"></i> Correo electrónico <span class="required">*</span>
+      </label>
       <input
         type="email"
-        id="register-email"
         class="form-control"
-        placeholder="tu@email.com"
+        placeholder="tu@correo.com"
         [(ngModel)]="user.email"
         name="email"
         required
       />
     </div>
-  </div>
 
-  <!-- Facultad -->
-<div class="form-group">
-  <label for="register-faculty">Facultad</label>
-  <select
-    id="register-faculty"
-    class="form-control"
-    [(ngModel)]="user.facultyId"
-    name="faculty_uuid"
-    required
-  >
-    <option value="">Selecciona tu facultad</option>
-    <option *ngFor="let faculty of (faculties$ | async)?.data" [value]="faculty.uniqueID">
-      {{ faculty.faculty_name }}
-    </option>
-  </select>
-</div>
-
-<div class="form-group">
-  <label for="register-password">Contraseña</label>
-  <div class="input-with-icon">
-    <i class="fas fa-lock input-icon"></i>
-    <input
-      type="password"
-      id="register-password"
-      class="form-control"
-      [(ngModel)]="user.password"
-      name="password"
-      placeholder="Ingresa tu contraseña"
-      required
-    />
-  </div>
-</div>
-
-
-  <!-- Rol -->
-  <div class="form-group">
-    <label for="register-role">Tipo de usuario</label>
-    <div class="input-with-icon">
-      <i class="fas fa-user-tag input-icon"></i>
-      <select
-        id="register-role"
+    <!-- Contraseña -->
+    <div class="form-group">
+      <label class="form-label">
+        <i class="fas fa-lock label-icon"></i> Contraseña <span class="required">*</span>
+      </label>
+      <input
+        type="password"
         class="form-control"
-        [(ngModel)]="user.roles"
-        name="role_uuid"
+        placeholder="Mínimo 6 caracteres"
+        [(ngModel)]="user.password"
+        name="password"
         required
-      >
-        <option value="">Selecciona tu rol</option>
-        <option value="a9f599c8-9708-4a10-af84-fdf67d874e4f">Estudiante</option>
-        <option value="81abacc8-a827-478e-8627-f3e453b1af88">Profesor</option>
-      </select>
+        minlength="6"
+      />
     </div>
+
+    <!-- Confirmar contraseña -->
+    <div class="form-group">
+      <label class="form-label">
+        <i class="fas fa-lock label-icon"></i> Confirmar contraseña <span class="required">*</span>
+      </label>
+      <input
+        type="password"
+        class="form-control"
+        [class.input-error]="confirmPassword && user.password !== confirmPassword"
+        placeholder="Repite tu contraseña"
+        [(ngModel)]="confirmPassword"
+        name="confirmPassword"
+        required
+      />
+      @if (confirmPassword && user.password !== confirmPassword) {
+        <small class="field-error">Las contraseñas no coinciden</small>
+      }
+    </div>
+
+    <!-- Tipo de cuenta (full width) -->
+    <div class="form-group full-width">
+      <label class="form-label">
+        <i class="fas fa-users-cog label-icon"></i> ¿Cuál es tu rol? <span class="required">*</span>
+      </label>
+      <div class="role-selector">
+        @for (role of roles; track role.uniqueID) {
+          <label
+            class="role-option"
+            [class.selected]="user.roles === role.uniqueID"
+          >
+            <input
+              type="radio"
+              [(ngModel)]="user.roles"
+              name="roles"
+              [value]="role.uniqueID"
+              required
+            />
+            <span class="role-icon">
+              <i [class]="role.name_rol === 'Profesor' ? 'fas fa-chalkboard-teacher' : 'fas fa-graduation-cap'"></i>
+            </span>
+            <span class="role-label">{{ role.name_rol }}</span>
+            <span class="role-desc">
+              {{ role.name_rol === 'Profesor' ? 'Ofrece asesorías y clases' : 'Busca asesoría y aprende' }}
+            </span>
+          </label>
+        }
+      </div>
+    </div>
+
+    <!-- Términos (full width) -->
+    <div class="form-group full-width terms-group">
+      <label class="checkbox-label">
+        <input type="checkbox" [(ngModel)]="acceptTerms" name="terms" required />
+        <span>Acepto los <a href="#" class="link">términos y condiciones</a> y la <a href="#" class="link">política de privacidad</a></span>
+      </label>
+    </div>
+
   </div>
 
-  <!-- Términos -->
-  <div class="form-options">
-    <div class="remember-me">
-      <input type="checkbox" id="terms-agree" required />
-      <label for="terms-agree">Acepto los <a href="#">términos y condiciones</a></label>
-    </div>
-  </div>
-
-  <!-- Botones -->
-  <button type="submit" class="btn btn-primary">Crear Cuenta</button>
-  <button type="button" class="btn btn-secondary" id="go-to-login">
-    ¿Ya tienes cuenta? Inicia sesión
+  <button
+    type="submit"
+    class="btn btn-primary btn-submit"
+    [disabled]="registerForm.invalid || user.password !== confirmPassword || !acceptTerms"
+  >
+    <i class="fas fa-user-plus"></i> Crear cuenta
   </button>
+
+  <p class="auth-footer">
+    ¿Ya tienes cuenta?
+    <a routerLink="/auth/login" class="link">Inicia sesión aquí</a>
+  </p>
+
 </form>

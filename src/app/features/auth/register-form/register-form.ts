@@ -1,68 +1,60 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { UserService } from '../../../core/services/user.service';
-import { User } from '../../../core/models/user.model';
-import { Observable } from 'rxjs';
-import { ApiResponse } from '../../../core/models/ApiResponse.model';
-import { Faculty } from '../../../core/models/faculty.model';
-import { FacultiesService } from '../../../core/services/faculties.service';
+import { RolesService, Role } from '../../../core/services/roles.service';
+
 @Component({
   selector: 'app-register-form',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './register-form.html',
   styleUrls: ['./register-form.scss'],
 })
-export class RegisterForm {
+export class RegisterForm implements OnInit {
+  roles: Role[] = [];
+  confirmPassword = '';
+  acceptTerms = false;
 
-  faculties$!: Observable<ApiResponse<Faculty[]>>;
-
-  user: User = {
+  user = {
     firstName: '',
     middleName: '',
     lastName: '',
     secondLastName: '',
-    studentCode: '',
     email: '',
-    facultyId: '',
+    password: '',
     roles: '',
-    passwordResetId: null,
   };
 
-  constructor(private userService: UserService, private facultiesService: FacultiesService) { }
+  constructor(
+    private userService: UserService,
+    private rolesService: RolesService,
+    private router: Router,
+  ) {}
 
   ngOnInit() {
-    this.faculties$ = this.facultiesService.getFaculties();
-
-  }
-
-
-  onSubmit() {
-    this.userService.createUser(this.user).subscribe({
+    this.rolesService.getRoles().subscribe({
       next: (res) => {
-        console.log('Usuario creado:', res);
-        alert('Usuario creado con éxito');
-        this.resetForm();
+        this.roles = res.data.filter((r) =>
+          ['Estudiante', 'Profesor'].includes(r.name_rol),
+        );
       },
-      error: (err) => {
-        console.error(' Error al crear usuario:', err);
-        alert('Error al registrar usuario');
-      }
     });
   }
 
-  resetForm() {
-    this.user = {
-      firstName: '',
-      middleName: '',
-      lastName: '',
-      secondLastName: '',
-      studentCode: '',
-      email: '',
-      facultyId: '',
-      roles: '',
-      passwordResetId: null,
-    };
+  onSubmit() {
+    if (this.user.password !== this.confirmPassword) return;
+
+    this.userService.createUser(this.user as any).subscribe({
+      next: () => {
+        alert('Cuenta creada con éxito. Ahora puedes iniciar sesión.');
+        this.router.navigate(['/auth/login']);
+      },
+      error: (err) => {
+        alert(err?.error?.message || 'Error al registrar usuario');
+      },
+    });
   }
 }

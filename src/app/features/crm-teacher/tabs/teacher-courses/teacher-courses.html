@@ -1,79 +1,74 @@
 <div class="tab-content" id="courses-content">
-    <div class="courses-section">
-        <div class="courses-header">
-            <h2 class="section-title">Mis Cursos</h2>
-            <div class="courses-filter">
-                <select class="form-control" style="width: auto;">
-                    <option>Todos los cursos</option>
-                    <option>Publicados</option>
-                    <option>Borradores</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="courses-grid">
-            <!-- Curso 1 -->
-            <div class="course-card">
-                <div class="course-image">
-                    <div class="course-status status-published">Publicado</div>
-                </div>
-                <div class="course-content">
-                    <h3 class="course-title">Desarrollo Web con Angular</h3>
-                    <p>Curso completo de Angular desde cero hasta nivel avanzado.</p>
-                    <div class="course-meta">
-                        <div class="course-stats">
-                            <i class="fas fa-users"></i> 450
-                            <i class="fas fa-star" style="margin-left: 15px;"></i> 4.8
-                        </div>
-                        <div class="course-actions">
-                            <button class="action-btn"><i class="fas fa-edit"></i></button>
-                            <button class="action-btn"><i class="fas fa-chart-bar"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Curso 2 -->
-            <div class="course-card">
-                <div class="course-image">
-                    <div class="course-status status-published">Publicado</div>
-                </div>
-                <div class="course-content">
-                    <h3 class="course-title">React Avanzado: Patrones y Mejores Prácticas</h3>
-                    <p>Domina React con patrones avanzados y mejores prácticas de desarrollo.</p>
-                    <div class="course-meta">
-                        <div class="course-stats">
-                            <i class="fas fa-users"></i> 320
-                            <i class="fas fa-star" style="margin-left: 15px;"></i> 4.9
-                        </div>
-                        <div class="course-actions">
-                            <button class="action-btn"><i class="fas fa-edit"></i></button>
-                            <button class="action-btn"><i class="fas fa-chart-bar"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Curso 3 -->
-            <div class="course-card">
-                <div class="course-image">
-                    <div class="course-status status-draft">Borrador</div>
-                </div>
-                <div class="course-content">
-                    <h3 class="course-title">Node.js y Express: Backend Profesional</h3>
-                    <p>Construye APIs RESTful robustas con Node.js y Express.</p>
-                    <div class="course-meta">
-                        <div class="course-stats">
-                            <i class="fas fa-users"></i> 0
-                            <i class="fas fa-star" style="margin-left: 15px;"></i> -
-                        </div>
-                        <div class="course-actions">
-                            <button class="action-btn"><i class="fas fa-edit"></i></button>
-                            <button class="action-btn"><i class="fas fa-chart-bar"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="dash-panel">
+    <div class="dash-panel-header">
+      <h2 class="dash-title">Mis Materias</h2>
+      <button class="btn btn-primary" (click)="showAddForm.set(!showAddForm())">
+        <i class="fas fa-plus"></i> Agregar materia
+      </button>
     </div>
+
+    @if (showAddForm()) {
+      <div class="form-card">
+        <h3 class="dash-title" style="margin-bottom:18px">Nueva materia</h3>
+        <div class="form-group">
+          <label class="form-label">Categoría / Materia</label>
+          <select class="form-control" [(ngModel)]="newSubject.category_id" name="category_id">
+            <option value="">Selecciona una categoría</option>
+            @for (cat of categories(); track cat.uniqueID) {
+              <option [value]="cat.uniqueID">{{ cat.name }}</option>
+            }
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Nivel</label>
+          <select class="form-control" [(ngModel)]="newSubject.level" name="level">
+            @for (opt of levelOptions; track opt[0]) {
+              <option [value]="opt[0]">{{ opt[1] }}</option>
+            }
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Descripción (opcional)</label>
+          <textarea class="form-control" rows="2" [(ngModel)]="newSubject.description"
+            name="description" placeholder="¿Qué temas específicos puedes enseñar?"></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" (click)="showAddForm.set(false)">Cancelar</button>
+          <button type="button" class="btn btn-primary"
+            [disabled]="adding() || !newSubject.category_id" (click)="addSubject()">
+            {{ adding() ? 'Guardando...' : 'Agregar' }}
+          </button>
+        </div>
+      </div>
+    }
+
+    @if (loading()) {
+      <p class="empty-state"><i class="fas fa-spinner fa-spin"></i> Cargando materias...</p>
+    } @else {
+      <div class="subjects-grid">
+        @for (subject of subjects(); track subject.uniqueID) {
+          <div class="subject-card">
+            <div class="subject-card-icon">
+              <i class="fas fa-book-open"></i>
+            </div>
+            <div class="subject-card-body">
+              <h4>{{ subject.category?.name ?? getCategoryName(subject.category_id) }}</h4>
+              @if (subject.description) {
+                <p>{{ subject.description }}</p>
+              }
+              <span class="badge badge-blue">{{ getLevelLabel(subject.level) }}</span>
+            </div>
+            <button class="subject-delete-btn" (click)="deleteSubject(subject.uniqueID)" title="Eliminar">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        } @empty {
+          <div class="empty-state" style="grid-column: 1 / -1">
+            <i class="fas fa-book"></i>
+            Aún no has agregado materias. Agrega las áreas en las que puedes asesorar.
+          </div>
+        }
+      </div>
+    }
+  </div>
 </div>

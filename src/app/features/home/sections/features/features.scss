@@ -2,63 +2,217 @@
 
 .features {
   background: $light;
+}
 
-  .features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+// ── Header ───────────────────────────────────────────────────
+.features-header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.features-tag {
+  display: inline-block;
+  background: rgba($primary, 0.08);
+  border: 1px solid rgba($primary, 0.2);
+  color: $primary;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 6px 18px;
+  border-radius: 30px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 18px;
+}
+
+// ── Bento Grid ───────────────────────────────────────────────
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
+  gap: 20px;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr 1fr;
   }
 
-  .feature-card {
-    background: $white;
-    padding: 40px 30px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 5px;
-      height: 0;
-      background: $primary;
-      transition: height 0.3s ease;
-    }
-
-    &:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-
-      &::before {
-        height: 100%;
-      }
-
-      h3 {
-        color: $primary;
-      }
-
-      .feature-icon {
-        transform: scale(1.1);
-        color: $primary-dark;
-      }
-    }
-
-    .feature-icon {
-      font-size: 3rem;
-      color: $primary;
-      margin-bottom: 20px;
-      transition: all 0.3s ease;
-    }
-
-    h3 {
-      margin-bottom: 15px;
-      font-size: 1.5rem;
-      transition: color 0.3s ease;
-    }
+  @media (max-width: 560px) {
+    grid-template-columns: 1fr;
   }
+}
+
+// ── Cards base ───────────────────────────────────────────────
+.bento-card {
+  border-radius: $radius-lg;
+  padding: 36px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: $shadow-lg;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 0.92rem;
+    line-height: 1.75;
+  }
+}
+
+// ── Variantes de color ────────────────────────────────────────
+.bento-dark {
+  background: $bg-dark;
+  color: white;
+  h3 { color: white; }
+  p  { color: rgba(255,255,255,0.6); }
+}
+
+.bento-navy {
+  background: #1A2744;
+  color: white;
+  h3 { color: white; }
+  p  { color: rgba(255,255,255,0.65); }
+}
+
+.bento-red {
+  background: $gradient;
+  color: white;
+  h3 { color: white; }
+  p  { color: rgba(255,255,255,0.85); }
+}
+
+.bento-white {
+  background: white;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: $shadow;
+  color: $text;
+  h3 { color: $bg-dark; }
+  p  { color: $text-light; }
+}
+
+// ── Tamaños especiales ────────────────────────────────────────
+.bento-large {
+  grid-column: span 2;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto 1fr;
+  gap: 0 24px;
+
+  .bento-icon {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .bento-body {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .video-bars {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    align-self: center;
+  }
+
+  @media (max-width: 900px) {
+    grid-column: span 2;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+
+    .video-bars { display: none; }
+  }
+
+  @media (max-width: 560px) {
+    grid-column: span 1;
+  }
+}
+
+.bento-wide {
+  grid-column: span 2;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+
+  @media (max-width: 900px) {
+    grid-column: span 2;
+  }
+
+  @media (max-width: 560px) {
+    grid-column: span 1;
+    flex-direction: column;
+  }
+}
+
+.cert-left {
+  flex: 1;
+}
+
+// ── Íconos ───────────────────────────────────────────────────
+.bento-icon {
+  width: 56px;
+  height: 56px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: white;
+  margin-bottom: 20px;
+
+  &-blue {
+    background: $gradient-blue;
+  }
+
+  &-light {
+    background: rgba(255,255,255,0.25);
+  }
+
+  &-teal {
+    background: linear-gradient(135deg, $success, #00B4D8);
+    color: white;
+  }
+}
+
+// ── Decoration: barras de video ───────────────────────────────
+.video-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 90px;
+  opacity: 0.25;
+
+  .vbar {
+    width: 14px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.7);
+
+    &:nth-child(1) { height: 38%; }
+    &:nth-child(2) { height: 72%; }
+    &:nth-child(3) { height: 52%; }
+    &:nth-child(4) { height: 95%; }
+    &:nth-child(5) { height: 68%; }
+    &:nth-child(6) { height: 44%; }
+  }
+}
+
+// ── Badge certificado ─────────────────────────────────────────
+.cert-badge {
+  width: 84px;
+  height: 84px;
+  background: linear-gradient(135deg, $accent, #FF8C00);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: white;
+  flex-shrink: 0;
+  box-shadow: 0 12px 32px rgba($accent, 0.35);
 }

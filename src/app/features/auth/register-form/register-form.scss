@@ -1,79 +1,215 @@
 @use 'styles' as *;
-.auth-form {
-            padding: 30px;
-        }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+.register-form {
+  padding: 28px 32px 24px;
+}
 
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: $dark;
-        }
+// ── Grid 2 columnas ───────────────────────────────────────────
+.register-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 20px;
+  row-gap: 4px;
+}
 
-        .input-with-icon {
-            position: relative;
-        }
+.form-group {
+  margin-bottom: 16px;
 
-        .input-icon {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: $text-light;
-        }
+  &.full-width {
+    grid-column: 1 / -1;
+  }
+}
 
-        .form-control {
-            width: 100%;
-            padding: 12px 15px 12px 45px;
-            border: 1px solid #ddd;
-            border-radius:$radius;
-            font-family: $font-main;
-            font-size: 1rem;
-            transition: $transition;
-        }
+// ── Labels ────────────────────────────────────────────────────
+.form-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: $dark;
+  letter-spacing: 0.01em;
+}
 
-        .form-control:focus {
-            outline: none;
-            border-color: $primary;
-            box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.1);
-        }
+.label-icon {
+  color: $primary;
+  font-size: 0.8rem;
+  margin-right: 4px;
+}
 
-        .password-toggle {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: $text-light;
-            cursor: pointer;
-        }
+.required {
+  color: $primary;
+  margin-left: 2px;
+}
 
-        .form-options {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            font-size: 0.9rem;
-        }
+.optional {
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: $text-light;
+  margin-left: 4px;
+  font-style: italic;
+}
 
-        .remember-me {
-            display: flex;
-            align-items: center;
-        }
+// ── Inputs ────────────────────────────────────────────────────
+.form-control {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  font-family: $font-main;
+  font-size: 0.92rem;
+  color: $text;
+  background: #fafbff;
+  transition: $transition;
+  box-sizing: border-box;
 
-        .remember-me input {
-            margin-right: 8px;
-        }
+  &::placeholder { color: $gray; }
 
-        .forgot-password {
-            color: $primary;
-            text-decoration: none;
-            transition: $transition;
-        }
+  &:focus {
+    outline: none;
+    border-color: $primary;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.1);
+  }
 
-        .forgot-password:hover {
-            text-decoration: underline;
-        }
+  &.input-error {
+    border-color: $primary;
+    background: #fff5f5;
+  }
+}
+
+.field-error {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.78rem;
+  color: $primary;
+}
+
+// ── Selector de rol ───────────────────────────────────────────
+.role-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.role-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 16px 12px;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: $transition;
+  background: #fafbff;
+  text-align: center;
+
+  input[type='radio'] { display: none; }
+
+  &:hover {
+    border-color: rgba(230, 57, 70, 0.4);
+    background: #fff5f5;
+  }
+
+  &.selected {
+    border-color: $primary;
+    background: linear-gradient(135deg, #fff5f5 0%, #fff0f1 100%);
+    box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.1);
+
+    .role-icon { color: $primary; background: rgba(230, 57, 70, 0.1); }
+    .role-label { color: $primary; }
+  }
+}
+
+.role-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #f0f4ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: $secondary;
+  transition: $transition;
+}
+
+.role-label {
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: $dark;
+  transition: $transition;
+}
+
+.role-desc {
+  font-size: 0.75rem;
+  color: $text-light;
+  line-height: 1.3;
+}
+
+// ── Términos ──────────────────────────────────────────────────
+.terms-group { margin-top: 4px; }
+
+.checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: $text-light;
+  line-height: 1.5;
+
+  input[type='checkbox'] {
+    margin-top: 2px;
+    accent-color: $primary;
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+  }
+}
+
+.link {
+  color: $primary;
+  text-decoration: none;
+  font-weight: 500;
+
+  &:hover { text-decoration: underline; }
+}
+
+// ── Botón submit ──────────────────────────────────────────────
+.btn-submit {
+  width: 100%;
+  padding: 13px;
+  margin-top: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border-radius: 8px;
+  border: none;
+  background: $gradient;
+  color: white;
+  cursor: pointer;
+  transition: $transition;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(230, 57, 70, 0.35);
+  }
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+}
+
+// ── Footer ────────────────────────────────────────────────────
+.auth-footer {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 0.88rem;
+  color: $text-light;
+}

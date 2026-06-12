@@ -1,27 +1,36 @@
-// Colores
-$primary: #E63946;
-$primary-dark: #C1121F;
-$secondary: #FCA311;
-$accent: #FFB703;
-$light: #F1FAEE;
-$dark: #1D3557;
-$success: #2A9D8F;
-$text: #1D3557;
-$text-light: #457B9D;
-$white: #FFFFFF;
-$gray: #6C757D;
+// ── Colores base ─────────────────────────────────────────────
+$primary:      #E63946;   // Rojo marca
+$primary-dark: #B5192A;   // Rojo profundo
+$secondary:    #4361EE;   // Índigo eléctrico (reemplaza naranja)
+$accent:       #FFD60A;   // Oro brillante
+$success:      #06D6A0;   // Verde esmeralda moderno
 
-// Sombras
-$shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-$shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.15);
+// ── Fondos ───────────────────────────────────────────────────
+$bg-dark:  #0F172A;       // Casi negro para hero y secciones oscuras
+$dark:     #1D3557;       // Navy profundo (UI general)
+$light:    #F0F4FF;       // Blanco con tinte azul
+$white:    #FFFFFF;
 
-// Gradientes
-$gradient: linear-gradient(135deg, $primary 0%, $secondary 100%);
+// ── Texto ────────────────────────────────────────────────────
+$text:       #0F172A;
+$text-light: #64748B;
+$gray:       #8A9ABB;
+
+// ── Sombras ──────────────────────────────────────────────────
+$shadow:    0 4px 6px rgba(0, 0, 0, 0.08);
+$shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.18);
+$shadow-xl: 0 24px 64px rgba(0, 0, 0, 0.35);
+
+// ── Gradientes ───────────────────────────────────────────────
+$gradient:       linear-gradient(135deg, $primary 0%, #FF8FA3 100%);
+$gradient-blue:  linear-gradient(135deg, $secondary 0%, #7B2FBE 100%);
+$gradient-dark:  linear-gradient(135deg, $bg-dark 0%, #1A2744 100%);
 $gradient-light: linear-gradient(135deg, $primary 0%, $accent 100%);
 
-// Tipografía
+// ── Tipografía ───────────────────────────────────────────────
 $font-main: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
-// Otros
-$radius: 10px;
+// ── Otros ────────────────────────────────────────────────────
+$radius:    12px;
+$radius-lg: 24px;
 $transition: all 0.3s ease;

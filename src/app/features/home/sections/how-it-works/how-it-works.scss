@@ -1,64 +1,234 @@
 @use 'styles' as *;
+@use 'sass:color';
 
-.steps {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin-top: 50px;
+// ── Sección ───────────────────────────────────────────────────
+.how-it-works {
+  background: $bg-dark;
+  color: white;
 }
 
-.step {
-    flex: 1;
-    min-width: 250px;
-    text-align: center;
-    padding: 20px;
-    position: relative;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.5s ease;
+// ── Header ───────────────────────────────────────────────────
+.hiw-header {
+  text-align: center;
+  margin-bottom: 80px;
 }
 
-.step.visible {
+.hiw-tag {
+  display: inline-block;
+  background: rgba($primary, 0.18);
+  border: 1px solid rgba($primary, 0.3);
+  color: color.adjust($primary, $lightness: 22%);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 6px 18px;
+  border-radius: 30px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 18px;
+}
+
+.hiw-title {
+  color: white !important;
+
+  &::after { background: $primary; }
+
+  span { color: $primary !important; }
+}
+
+.hiw-subtitle {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 1rem;
+  margin-top: 12px;
+}
+
+// ── Roles (dos columnas) ──────────────────────────────────────
+.hiw-roles {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0 48px;
+  align-items: start;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+    gap: 60px 0;
+  }
+}
+
+.role-col {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.role-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 10px 20px;
+  border-radius: 30px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  width: fit-content;
+
+  &-student {
+    background: rgba($secondary, 0.15);
+    border: 1px solid rgba($secondary, 0.3);
+    color: color.adjust($secondary, $lightness: 20%);
+  }
+
+  &-tutor {
+    background: rgba($success, 0.15);
+    border: 1px solid rgba($success, 0.3);
+    color: color.adjust($success, $lightness: 15%);
+  }
+}
+
+.role-divider {
+  width: 1px;
+  align-self: stretch;
+  background: rgba(255, 255, 255, 0.07);
+  margin-top: 56px;
+
+  @media (max-width: 900px) { display: none; }
+}
+
+// ── Timeline ─────────────────────────────────────────────────
+.timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+}
+
+.timeline-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(255,255,255,0.08) 8%,
+    rgba(255,255,255,0.08) 92%,
+    transparent
+  );
+  transform: translateX(-50%);
+
+  @media (max-width: 720px) { left: 28px; }
+}
+
+// ── Item ─────────────────────────────────────────────────────
+.timeline-item {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 36px;
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+
+  &.visible {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  @media (max-width: 720px) {
+    grid-template-columns: auto 1fr;
+    gap: 20px;
+
+    .tl-spacer { display: none; }
+  }
 }
 
-.step-number {
-    width: 60px;
-    height: 60px;
-    background: $primary;
-    color: $white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin: 0 auto 20px;
-    transition: all 0.3s ease;
+.tl-left .tl-content { text-align: right; }
+.tl-right .tl-content { text-align: left; }
+
+@media (max-width: 720px) {
+  .tl-left .tl-content,
+  .tl-right .tl-content {
+    text-align: left;
+  }
+
+  .tl-right .tl-number { order: -1; }
 }
 
-.step:hover .step-number {
-    transform: scale(1.1);
-    background: $primary-dark;
+.tl-spacer { flex: 1; }
+
+// ── Número central ────────────────────────────────────────────
+.tl-number {
+  width: 62px;
+  height: 62px;
+  background: $primary;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 800;
+  color: white;
+  border: 4px solid $bg-dark;
+  box-shadow: 0 0 0 2px $primary;
+  z-index: 1;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+
+  &:hover { transform: scale(1.1); }
 }
 
-.step:not(:last-child):after {
-    content: '';
-    position: absolute;
-    top: 45px;
-    right: 0;
-    width: 50%;
-    height: 2px;
-    background: $primary;
+// ── Contenido del paso ────────────────────────────────────────
+.tl-content {
+  padding: 28px 32px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  transition: background 0.3s ease, border-color 0.3s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.14);
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: white;
+  }
+
+  p {
+    font-size: 0.92rem;
+    color: rgba(255, 255, 255, 0.55);
+    line-height: 1.75;
+  }
 }
 
-.step:not(:first-child):before {
-    content: '';
-    position: absolute;
-    top: 45px;
-    left: 0;
-    width: 50%;
-    height: 2px;
-    background: $primary;
+// ── Íconos de paso ────────────────────────────────────────────
+.tl-icon {
+  width: 50px;
+  height: 50px;
+  background: $primary;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  color: white;
+  margin-bottom: 14px;
+  transition: transform 0.3s ease;
+
+  &-blue { background: $gradient-blue; }
+  &-gold { background: linear-gradient(135deg, $accent, #FF8C00); color: $bg-dark; }
+  &-teal { background: linear-gradient(135deg, $success, #00B4D8); }
+}
+
+.tl-left .tl-icon  { margin-left: auto; }
+.tl-right .tl-icon { margin-left: 0; }
+
+@media (max-width: 720px) {
+  .tl-left .tl-icon,
+  .tl-right .tl-icon { margin-left: 0; }
 }

@@ -1,60 +1,227 @@
 @use 'styles' as *;
+@use 'sass:color';
+
 .testimonials {
-     background: $light;
- }
+  background: $light;
+}
 
- .testimonials-grid {
-     display: grid;
-     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-     gap: 30px;
- }
+// ── Header ───────────────────────────────────────────────────
+.testimonials-header {
+  text-align: center;
+  margin-bottom: 56px;
+}
 
- .testimonial-card {
-     background: white;
-     padding: 30px;
-     border-radius: 10px;
-     box-shadow: $shadow;
-     transition: all 0.3s ease;
-     position: relative;
- }
+.testimonials-tag {
+  display: inline-block;
+  background: rgba($primary, 0.08);
+  border: 1px solid rgba($primary, 0.2);
+  color: $primary;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 6px 18px;
+  border-radius: 30px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 18px;
+}
 
- .testimonial-card:before {
-     content: '"';
-     position: absolute;
-     top: 20px;
-     left: 20px;
-     font-size: 4rem;
-     color: $primary;
-     opacity: 0.2;
-     font-family: Georgia, serif;
- }
+// ── Layout asimétrico ─────────────────────────────────────────
+.testimonials-layout {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 24px;
+  align-items: start;
 
- .testimonial-card:hover {
-     transform: translateY(-5px);
-     box-shadow: $shadow-lg;
- }
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
 
- .testimonial-text {
-     font-style: italic;
-     margin-bottom: 20px;
-     position: relative;
-     z-index: 1;
- }
+// ── Testimonio destacado ──────────────────────────────────────
+.testimonial-featured {
+  background: $bg-dark;
+  color: white;
+  border-radius: 28px;
+  padding: 48px;
+  position: relative;
+  overflow: hidden;
 
- .testimonial-author {
-     display: flex;
-     align-items: center;
- }
+  &::before {
+    content: '';
+    position: absolute;
+    top: -120px;
+    right: -120px;
+    width: 320px;
+    height: 320px;
+    background: $primary;
+    border-radius: 50%;
+    opacity: 0.06;
+  }
 
- .author-avatar {
-     width: 50px;
-     height: 50px;
-     border-radius: 50%;
-     background: $primary;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     color: white;
-     font-weight: bold;
-     margin-right: 15px;
- }
+  .featured-label {
+    position: absolute;
+    top: 28px;
+    right: 28px;
+    background: rgba($primary, 0.2);
+    border: 1px solid rgba($primary, 0.3);
+    color: color.adjust($primary, $lightness: 22%);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .big-quote {
+    font-size: 8rem;
+    font-family: Georgia, serif;
+    color: $primary;
+    line-height: 0.65;
+    opacity: 0.35;
+    margin-bottom: 20px;
+  }
+
+  .testimonial-text {
+    font-size: 1.1rem;
+    line-height: 1.85;
+    color: rgba(255,255,255,0.82);
+    font-style: italic;
+    margin-bottom: 36px;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .author-info {
+    h4 { color: white; font-size: 1rem; font-weight: 700; margin-bottom: 2px; }
+    p  { color: rgba(255,255,255,0.5); font-size: 0.85rem; margin-bottom: 6px; }
+  }
+
+  .author-avatar {
+    width: 62px;
+    height: 62px;
+    font-size: 1rem;
+  }
+}
+
+// ── Stack secundario ──────────────────────────────────────────
+.testimonials-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.testimonial-card {
+  background: white;
+  border-radius: $radius-lg;
+  padding: 30px;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: $shadow;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-lg;
+  }
+
+  .testimonial-text {
+    font-size: 0.92rem;
+    line-height: 1.75;
+    color: $text;
+    font-style: italic;
+    margin-bottom: 22px;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .author-info {
+    h4 { color: $bg-dark; font-size: 0.95rem; font-weight: 700; margin-bottom: 2px; }
+    p  { color: $text-light; font-size: 0.82rem; }
+  }
+
+  &.testimonial-card-dark {
+    background: $dark;
+    border-color: transparent;
+
+    .testimonial-text { color: rgba(255,255,255,0.78); }
+    .author-info h4   { color: white; }
+    .author-info p    { color: rgba(255,255,255,0.5); }
+
+    .small-quote { color: $primary; }
+  }
+}
+
+.small-quote {
+  font-size: 4.5rem;
+  font-family: Georgia, serif;
+  color: $primary;
+  line-height: 0.6;
+  opacity: 0.18;
+  margin-bottom: 14px;
+  display: block;
+}
+
+// ── Avatares ─────────────────────────────────────────────────
+.author-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: $primary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+
+  &.avatar-blue { background: $gradient-blue; }
+  &.avatar-gold { background: linear-gradient(135deg, $accent, #FF8C00); color: $bg-dark; }
+}
+
+// ── Badge de rol ─────────────────────────────────────────────
+.testimonial-role {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background: rgba($secondary, 0.1);
+  border: 1px solid rgba($secondary, 0.2);
+  color: $secondary;
+  margin-bottom: 12px;
+
+  &-dark {
+    background: rgba($accent, 0.15);
+    border-color: rgba($accent, 0.25);
+    color: $accent;
+  }
+}
+
+.testimonial-featured .featured-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+// ── Estrellas ────────────────────────────────────────────────
+.rating {
+  display: flex;
+  gap: 3px;
+  color: $accent;
+  font-size: 0.75rem;
+}
