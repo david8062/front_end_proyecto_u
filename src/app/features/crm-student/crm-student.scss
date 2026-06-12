@@ -1,0 +1,129 @@
+@use '../../../styles/variables' as *;
+
+// ── Layout ─────────────────────────────────────────────────
+.crm-layout {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  font-family: $font-main;
+  background: #f8f9fc;
+}
+
+// ── Sidebar ─────────────────────────────────────────────────
+.crm-sidebar {
+  width: 240px;
+  min-width: 240px;
+  background: #1a1a2e;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 1rem;
+  gap: 2rem;
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  padding: .5rem .5rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.brand-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: $gradient;
+  color: #fff;
+  font-weight: 800;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.brand-name {
+  display: block;
+  color: #fff;
+  font-weight: 700;
+  font-size: .95rem;
+}
+
+.brand-role {
+  display: block;
+  color: rgba(255,255,255,.45);
+  font-size: .72rem;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .7rem 1rem;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  color: rgba(255,255,255,.55);
+  font-family: $font-main;
+  font-size: .88rem;
+  cursor: pointer;
+  text-align: left;
+  transition: all .2s;
+
+  i { width: 18px; font-size: .95rem; }
+
+  &:hover { background: rgba(255,255,255,.07); color: #fff; }
+
+  &.active {
+    background: $gradient;
+    color: #fff;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(67,97,238,.35);
+  }
+}
+
+// ── Main ────────────────────────────────────────────────────
+.crm-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.crm-topbar {
+  background: #fff;
+  padding: 1.2rem 1.5rem;
+  border-bottom: 1px solid #f0f0f0;
+  box-shadow: 0 1px 4px rgba(0,0,0,.04);
+}
+
+.topbar-title {
+  h1 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin: 0 0 .2rem;
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+
+    i { color: $secondary; }
+  }
+
+  p {
+    font-size: .83rem;
+    color: #9ca3af;
+    margin: 0;
+  }
+}
+
+.crm-content {
+  flex: 1;
+  overflow-y: auto;
+}

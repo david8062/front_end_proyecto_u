@@ -1,1 +1,54 @@
-<p>crm-student works!</p>
+<div class="crm-layout">
+
+  <!-- ── Sidebar ────────────────────────────────────────────── -->
+  <aside class="crm-sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-logo">SM</div>
+      <div>
+        <span class="brand-name">StudyMatch</span>
+        <span class="brand-role">Panel Estudiante</span>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <button
+        class="nav-item"
+        [class.active]="activeTab() === 'search'"
+        (click)="activeTab.set('search')">
+        <i class="fas fa-search"></i>
+        <span>Explorar asesores</span>
+      </button>
+      <button
+        class="nav-item"
+        [class.active]="activeTab() === 'sessions'"
+        (click)="activeTab.set('sessions')">
+        <i class="fas fa-calendar-check"></i>
+        <span>Mis sesiones</span>
+      </button>
+    </nav>
+  </aside>
+
+  <!-- ── Main content ──────────────────────────────────────── -->
+  <main class="crm-main">
+    <header class="crm-topbar">
+      <div class="topbar-title">
+        @if (activeTab() === 'search') {
+          <h1><i class="fas fa-search"></i> Explorar asesores</h1>
+          <p>Encuentra el asesor perfecto para tus necesidades académicas.</p>
+        } @else {
+          <h1><i class="fas fa-calendar-check"></i> Mis sesiones</h1>
+          <p>Gestiona tus reservas y consulta tu historial.</p>
+        }
+      </div>
+    </header>
+
+    <div class="crm-content">
+      @if (activeTab() === 'search') {
+        <app-student-search />
+      } @else {
+        <app-student-sessions />
+      }
+    </div>
+  </main>
+
+</div>

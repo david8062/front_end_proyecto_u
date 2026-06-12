@@ -1,0 +1,194 @@
+<div class="search-tab">
+
+  <!-- ── Filtros ──────────────────────────────────────────── -->
+  <div class="search-bar-row">
+    <div class="search-input-wrap">
+      <i class="fas fa-search search-icon"></i>
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Buscar por nombre, materia..."
+        [ngModel]="searchText()"
+        (ngModelChange)="searchText.set($event)"
+        name="search">
+    </div>
+    <select class="filter-select" [ngModel]="selectedCategory()"
+      (ngModelChange)="selectedCategory.set($event); onCategoryChange()" name="category">
+      <option value="">Todas las materias</option>
+      @for (cat of categories(); track cat.uniqueID) {
+        <option [value]="cat.uniqueID">{{ cat.name }}</option>
+      }
+    </select>
+  </div>
+
+  <!-- ── Grid de asesores ─────────────────────────────────── -->
+  @if (loading()) {
+    <div class="loading-state">
+      <i class="fas fa-spinner fa-spin"></i>
+      <span>Buscando asesores...</span>
+    </div>
+  } @else if (filteredAdvisors.length === 0) {
+    <div class="empty-state">
+      <i class="fas fa-user-slash"></i>
+      <p>No se encontraron asesores disponibles.</p>
+    </div>
+  } @else {
+    <div class="advisors-grid">
+      @for (advisor of filteredAdvisors; track advisor.UniqueID) {
+        <div class="advisor-card">
+          <div class="advisor-card-header">
+            <div class="advisor-avatar">
+              {{ advisor.specialization?.charAt(0)?.toUpperCase() ?? 'A' }}
+            </div>
+            @if (advisor.is_verified) {
+              <span class="verified-badge"><i class="fas fa-check-circle"></i> Verificado</span>
+            }
+          </div>
+
+          <div class="advisor-card-body">
+            <h3 class="advisor-name">
+              {{ advisor.user?.primer_nombre }} {{ advisor.user?.primer_apellido }}
+            </h3>
+            <p class="advisor-spec">{{ advisor.specialization ?? 'Asesor académico' }}</p>
+
+            @if (advisor.description) {
+              <p class="advisor-desc">{{ advisor.description }}</p>
+            }
+
+            <!-- Materias -->
+            @if ((advisor.subjects?.length ?? 0) > 0) {
+              <div class="advisor-subjects">
+                @for (subj of advisor.subjects!.slice(0, 3); track subj.uniqueID) {
+                  <span class="subject-chip">{{ subj.category?.name }}</span>
+                }
+                @if ((advisor.subjects?.length ?? 0) > 3) {
+                  <span class="subject-chip chip-more">+{{ (advisor.subjects?.length ?? 0) - 3 }}</span>
+                }
+              </div>
+            }
+
+            <!-- Precio mínimo -->
+            @if (getMinPrice(advisor); as minPrice) {
+              <div class="advisor-price">
+                <i class="fas fa-tag"></i>
+                Desde <strong>${{ minPrice | number }} COP</strong>
+              </div>
+            }
+          </div>
+
+          <div class="advisor-card-footer">
+            <button class="btn btn-primary btn-book" (click)="openBooking(advisor)">
+              <i class="fas fa-calendar-plus"></i> Reservar sesión
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+
+</div>
+
+<!-- ══ Modal de reserva ════════════════════════════════════ -->
+@if (selectedAdvisor(); as advisor) {
+  <div class="modal-overlay" (click)="closeModal()">
+    <div class="booking-modal" (click)="$event.stopPropagation()">
+      <button class="modal-close" (click)="closeModal()">
+        <i class="fas fa-times"></i>
+      </button>
+
+      <div class="modal-header">
+        <div class="modal-avatar">{{ advisor.specialization?.charAt(0)?.toUpperCase() ?? 'A' }}</div>
+        <div>
+          <h2>{{ advisor.user?.primer_nombre }} {{ advisor.user?.primer_apellido }}</h2>
+          <p>{{ advisor.specialization }}</p>
+        </div>
+      </div>
+
+      @if (bookingSuccess()) {
+        <div class="booking-success">
+          <i class="fas fa-check-circle"></i>
+          <h3>¡Sesión reservada!</h3>
+          <p>Tu solicitud ha sido enviada. El asesor la confirmará pronto.</p>
+          <button class="btn btn-primary" (click)="closeModal()">Cerrar</button>
+        </div>
+      } @else {
+        <div class="modal-body">
+
+          <!-- Tipo de servicio -->
+          <div class="form-group">
+            <label class="form-label">Tipo de servicio</label>
+            <select class="form-control" [ngModel]="selectedServiceType()"
+              (ngModelChange)="selectedServiceType.set($event)" name="service_type">
+              @for (opt of serviceOptions; track opt[0]) {
+                @if (hasPricingPlan(advisor, opt[0])) {
+                  <option [value]="opt[0]">
+                    {{ opt[1] }} — ${{ getPlanPrice(advisor, opt[0]) | number }} COP
+                  </option>
+                }
+              }
+            </select>
+          </div>
+
+          <!-- Fecha -->
+          <div class="form-group">
+            <label class="form-label">Fecha</label>
+            <input type="date" class="form-control"
+              [ngModel]="bookingDate()"
+              (ngModelChange)="bookingDate.set($event); onDateChange()"
+              [min]="minDate" name="booking_date">
+          </div>
+
+          <!-- Turnos disponibles -->
+          @if (bookingDate()) {
+            @if (loadingSlots()) {
+              <p class="slots-loading"><i class="fas fa-spinner fa-spin"></i> Cargando turnos...</p>
+            } @else if (slots().length === 0) {
+              <p class="slots-empty">No hay disponibilidad para este día.</p>
+            } @else {
+              <div class="form-group">
+                <label class="form-label">Turno disponible</label>
+                <div class="slots-grid">
+                  @for (slot of slots(); track slot.start_time) {
+                    <button
+                      class="slot-btn"
+                      [class.slot-available]="slot.available"
+                      [class.slot-taken]="!slot.available"
+                      [class.slot-selected]="selectedSlot()?.start_time === slot.start_time"
+                      [disabled]="!slot.available"
+                      (click)="selectSlot(slot)">
+                      {{ slot.start_time }}
+                    </button>
+                  }
+                </div>
+              </div>
+            }
+          }
+
+          <!-- Notas -->
+          @if (selectedSlot()) {
+            <div class="form-group">
+              <label class="form-label">Notas para el asesor (opcional)</label>
+              <textarea class="form-control" rows="2"
+                [ngModel]="bookingNotes()"
+                (ngModelChange)="bookingNotes.set($event)"
+                name="notes"
+                placeholder="Ej: Necesito ayuda con derivadas parciales..."></textarea>
+            </div>
+
+            @if (bookingError()) {
+              <p class="booking-error"><i class="fas fa-exclamation-circle"></i> {{ bookingError() }}</p>
+            }
+
+            <div class="modal-actions">
+              <button class="btn btn-secondary" (click)="selectedSlot.set(null)">Cambiar turno</button>
+              <button class="btn btn-primary" [disabled]="booking()" (click)="confirmBooking()">
+                {{ booking() ? 'Reservando...' : 'Confirmar reserva' }}
+              </button>
+            </div>
+          }
+
+        </div>
+      }
+    </div>
+  </div>
+}

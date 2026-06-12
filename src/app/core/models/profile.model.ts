@@ -22,6 +22,8 @@ export type DayOfWeek =
 
 export type SubjectLevel = 'BASIC' | 'INTERMEDIATE' | 'ADVANCED';
 
+export type SessionStatus = 'PENDING' | 'CONFIRMED' | 'CANCELLED' | 'COMPLETED';
+
 export interface Education {
   uniqueID: string;
   degree: DegreeLevel;
@@ -61,6 +63,12 @@ export interface Availability {
   profile_id: string;
 }
 
+export interface TeacherUser {
+  primer_nombre: string;
+  primer_apellido: string;
+  email: string;
+}
+
 export interface Profile {
   UniqueID: string;
   description?: string;
@@ -73,10 +81,33 @@ export interface Profile {
   is_verified: boolean;
   is_active: boolean;
   user_id: string;
+  user?: TeacherUser;
   education?: Education[];
   subjects?: TeacherSubject[];
   pricingPlans?: PricingPlan[];
   availability?: Availability[];
+}
+
+export interface TimeSlot {
+  start_time: string;
+  end_time: string;
+  available: boolean;
+}
+
+export interface Session {
+  uniqueID: string;
+  student_id: string;
+  profile_id: string;
+  availability_id: string;
+  service_type: ServiceType;
+  scheduled_date: string;
+  start_time: string;
+  end_time: string;
+  status: SessionStatus;
+  notes?: string;
+  created_at: string;
+  profile?: Profile;
+  availability?: Availability;
 }
 
 export const SERVICE_TYPE_LABELS: Record<ServiceType, string> = {
@@ -108,4 +139,11 @@ export const LEVEL_LABELS: Record<SubjectLevel, string> = {
   BASIC: 'Básico',
   INTERMEDIATE: 'Intermedio',
   ADVANCED: 'Avanzado',
+};
+
+export const SESSION_STATUS_LABELS: Record<SessionStatus, string> = {
+  PENDING: 'Pendiente',
+  CONFIRMED: 'Confirmada',
+  CANCELLED: 'Cancelada',
+  COMPLETED: 'Completada',
 };

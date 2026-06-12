@@ -1,0 +1,106 @@
+<div class="sessions-tab">
+
+  @if (loading()) {
+    <div class="loading-state">
+      <i class="fas fa-spinner fa-spin"></i>
+      <span>Cargando tus sesiones...</span>
+    </div>
+  } @else {
+
+    <!-- ── Próximas ──────────────────────────────────────── -->
+    <div class="section">
+      <div class="section-header">
+        <h2 class="section-title">Próximas sesiones</h2>
+        <span class="count-badge">{{ upcoming.length }}</span>
+      </div>
+
+      @if (upcoming.length === 0) {
+        <div class="empty-state">
+          <i class="fas fa-calendar"></i>
+          <p>No tienes sesiones próximas. ¡Reserva una en la pestaña Explorar!</p>
+        </div>
+      } @else {
+        <div class="sessions-list">
+          @for (session of upcoming; track session.uniqueID) {
+            <div class="session-card">
+              <div class="session-date-col">
+                <span class="session-day">{{ formatDate(session.scheduled_date).split('/')[0] }}</span>
+                <span class="session-month">{{ formatDate(session.scheduled_date).split('/')[1] }}/{{ formatDate(session.scheduled_date).split('/')[2] }}</span>
+              </div>
+              <div class="session-info">
+                <div class="session-advisor">
+                  {{ session.profile?.user?.primer_nombre }} {{ session.profile?.user?.primer_apellido }}
+                </div>
+                <div class="session-service">{{ getServiceLabel(session.service_type) }}</div>
+                <div class="session-time">
+                  <i class="fas fa-clock"></i>
+                  {{ session.start_time }} – {{ session.end_time }}
+                </div>
+                @if (session.notes) {
+                  <div class="session-notes">
+                    <i class="fas fa-sticky-note"></i> {{ session.notes }}
+                  </div>
+                }
+              </div>
+              <div class="session-status-col">
+                <span class="status-badge status-{{ session.status.toLowerCase() }}">
+                  {{ getStatusLabel(session.status) }}
+                </span>
+                @if (canCancel(session)) {
+                  <button
+                    class="btn-cancel"
+                    [disabled]="cancelling() === session.uniqueID"
+                    (click)="cancel(session.uniqueID)">
+                    {{ cancelling() === session.uniqueID ? '...' : 'Cancelar' }}
+                  </button>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- ── Historial ─────────────────────────────────────── -->
+    <div class="section">
+      <div class="section-header">
+        <h2 class="section-title">Historial</h2>
+        <span class="count-badge count-muted">{{ past.length }}</span>
+      </div>
+
+      @if (past.length === 0) {
+        <div class="empty-state">
+          <i class="fas fa-history"></i>
+          <p>Aún no tienes sesiones pasadas.</p>
+        </div>
+      } @else {
+        <div class="sessions-list sessions-list-muted">
+          @for (session of past; track session.uniqueID) {
+            <div class="session-card session-card-past">
+              <div class="session-date-col">
+                <span class="session-day">{{ formatDate(session.scheduled_date).split('/')[0] }}</span>
+                <span class="session-month">{{ formatDate(session.scheduled_date).split('/')[1] }}/{{ formatDate(session.scheduled_date).split('/')[2] }}</span>
+              </div>
+              <div class="session-info">
+                <div class="session-advisor">
+                  {{ session.profile?.user?.primer_nombre }} {{ session.profile?.user?.primer_apellido }}
+                </div>
+                <div class="session-service">{{ getServiceLabel(session.service_type) }}</div>
+                <div class="session-time">
+                  <i class="fas fa-clock"></i>
+                  {{ session.start_time }} – {{ session.end_time }}
+                </div>
+              </div>
+              <div class="session-status-col">
+                <span class="status-badge status-{{ session.status.toLowerCase() }}">
+                  {{ getStatusLabel(session.status) }}
+                </span>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+
+  }
+</div>
